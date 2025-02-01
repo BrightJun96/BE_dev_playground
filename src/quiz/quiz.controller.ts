@@ -19,10 +19,8 @@ import {
 } from "@nestjs/swagger";
 import { QueryRunner as QR } from "typeorm/query-runner/QueryRunner";
 import { Public } from "../auth/decorator/public.decorator";
-import { RBAC } from "../auth/decorator/rbac.decorator";
 import { QueryRunner } from "../shared/decorator/query-runner.decorator";
 import { TransactionInterceptor } from "../shared/interceptor/transaction.interceptor";
-import { Role } from "../user/entities/user.entity";
 import { CheckAnswerRequestDto } from "./dto/request/check-answer.request.dto";
 import { CreateQuizRequestDto } from "./dto/request/create-quiz.request.dto";
 import { GetQuizListRequestDto } from "./dto/request/get-quiz-list.request.dto";
@@ -129,7 +127,8 @@ export class QuizController {
    * 퀴즈 목록
    */
   @Get()
-  @RBAC(Role.admin)
+  @Public()
+  // @RBAC(Role.admin)
   @ApiOperation({
     description: "관리자-퀴즈 목록",
   })
@@ -149,7 +148,8 @@ export class QuizController {
    * 퀴즈 생성
    */
   @Post()
-  @RBAC(Role.admin)
+  // @RBAC(Role.admin)
+  @Public()
   @UseInterceptors(TransactionInterceptor)
   @ApiOperation({
     description: "관리자-퀴즈 생성",
@@ -169,7 +169,8 @@ export class QuizController {
    * 수정
    */
   @Patch(":id")
-  @RBAC(Role.admin)
+  // @RBAC(Role.admin)
+  @Public()
   @UseInterceptors(TransactionInterceptor)
   @ApiOperation({
     description: "관리자-퀴즈 수정",
@@ -194,7 +195,8 @@ export class QuizController {
    * 퀴즈 상세
    */
   @Get(":id")
-  @RBAC(Role.admin)
+  // @RBAC(Role.admin)
+  @Public()
   @ApiOperation({
     description: "관리자-퀴즈 상세",
   })
@@ -211,7 +213,8 @@ export class QuizController {
    * 퀴즈 삭제
    */
   @Delete(":id")
-  @RBAC(Role.admin)
+  // @RBAC(Role.admin)
+  @Public()
   @ApiOperation({
     description: "관리자-퀴즈 삭제",
   })

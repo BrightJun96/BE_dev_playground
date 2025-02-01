@@ -43,6 +43,8 @@ import { ThrottleInterceptor } from "./shared/interceptor/throttle.interceptor";
 import { User } from "./user/entities/user.entity";
 import { UserModule } from "./user/user.module";
 import { WorkerModule } from "./worker/worker.module";
+import { CodeModule } from './code/code.module';
+import { InterviewModule } from './interview/interview.module';
 
 @Module({
   imports: [
@@ -148,6 +150,8 @@ import { WorkerModule } from "./worker/worker.module";
       WorkerModule,
       (env: NodeJS.ProcessEnv) => env["TYPE"] === "worker",
     ),
+    CodeModule,
+    InterviewModule,
   ],
   providers: [
     {
