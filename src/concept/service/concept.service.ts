@@ -1,29 +1,47 @@
-import { Injectable } from "@nestjs/common";
-import { CreateConceptRequestDto } from "../dto/request/create-concept.request.dto";
-import { UpdateConceptRequestDto } from "../dto/request/update-concept.request.dto";
+import {
+  BadRequestException,
+  Injectable,
+} from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Relations } from "../../shared/const/relation.const";
+import { DeleteResponseDto } from "../../shared/dto/delete.response.dto";
+import { Concept } from "../entities/concept.entity";
 
 @Injectable()
 export class ConceptService {
-  create(createConceptDto: CreateConceptRequestDto) {
-    return "This action adds a new concept";
+  constructor(
+    @InjectRepository(Concept)
+    private readonly conceptRepository: Repository<Concept>,
+  ) {}
+
+  async findAll() {
+    return await this.conceptRepository.find({
+      relations: [Relations.CONCEPT.META],
+    });
   }
 
-  findAll() {
-    return `This action returns all concept`;
+  async findOne(id: number) {
+    const concept = await this.conceptRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!concept) {
+      throw new BadRequestException(
+        "존재하지 않는 데이터입니다.",
+      );
+    }
+
+    return concept;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} concept`;
-  }
-
-  update(
-    id: number,
-    updateConceptDto: UpdateConceptRequestDto,
-  ) {
-    return `This action updates a #${id} concept`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} concept`;
+  async remove(id: number): Promise<DeleteResponseDto> {
+    await this.findOne(id);
+    await this.conceptRepository.delete(id);
+    return {
+      removeStatus: true,
+    };
   }
 }

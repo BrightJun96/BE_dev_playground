@@ -13,4 +13,13 @@ const INTERVIEW = {
   META: "interviewMetaData",
 };
 
-export const Relations = { MOVIE, QUIZ, INTERVIEW };
+const CONCEPT = {
+  META: "conceptMeta",
+};
+
+export const Relations = {
+  MOVIE,
+  QUIZ,
+  INTERVIEW,
+  CONCEPT,
+};

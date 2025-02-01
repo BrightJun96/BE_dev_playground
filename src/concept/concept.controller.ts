@@ -55,7 +55,9 @@ export class ConceptController {
   create(
     @Body() createConceptDto: CreateConceptRequestDto,
   ) {
-    return this.conceptService.create(createConceptDto);
+    return this.createConceptService.create(
+      createConceptDto,
+    );
   }
 
   @Get(":id")
@@ -77,7 +79,10 @@ export class ConceptController {
     @Param("id", ParseIntPipe) id: number,
     @Body() updateConceptDto: UpdateConceptRequestDto,
   ) {
-    return this.conceptService.update(id, updateConceptDto);
+    return this.updateConceptService.update(
+      id,
+      updateConceptDto,
+    );
   }
 
   @Delete(":id")
