@@ -21,27 +21,35 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import * as redisStore from "cache-manager-redis-store";
 import * as Joi from "joi";
 import { join } from "path";
-import { AuthModule } from "./auth/auth.module";
-import { AuthGuard } from "./auth/guard/auth.guard";
-import { RbacGuard } from "./auth/guard/rbac.guard";
-import { BearerTokenMiddleware } from "./auth/middleware/bearer-token.middleware";
-import { ChatModule } from "./chat/chat.module";
-import { ChatRoom } from "./chat/entities/chat-room.entity";
-import { Chat } from "./chat/entities/chat.entity";
+import { AuthModule } from "./domain/auth/auth.module";
+import { AuthGuard } from "./domain/auth/guard/auth.guard";
+import { RbacGuard } from "./domain/auth/guard/rbac.guard";
+import { BearerTokenMiddleware } from "./domain/auth/middleware/bearer-token.middleware";
+import { BlogModule } from "./domain/blog/blog.module";
+import { ChatModule } from "./domain/chat/chat.module";
+import { ChatRoom } from "./domain/chat/entities/chat-room.entity";
+import { Chat } from "./domain/chat/entities/chat.entity";
+import { CodeModule } from "./domain/code/code.module";
+import { ConceptModule } from "./domain/concept/concept.module";
+import { ConceptMeta } from "./domain/concept/entities/concept-meta.entity";
+import { Concept } from "./domain/concept/entities/concept.entity";
+import { InterviewMetadata } from "./domain/interview/entities/interview-metadata.entity";
+import { Interview } from "./domain/interview/entities/interview.entity";
+import { InterviewModule } from "./domain/interview/interview.module";
+
+import { MultipleChoice } from "./domain/quiz/entities/multiple-choice.entity";
+import { QuizMetaData } from "./domain/quiz/entities/quiz-meta-data.entity";
+import { Quiz } from "./domain/quiz/entities/quiz.entity";
+import { QuizModule } from "./domain/quiz/quiz.module";
+import { User } from "./domain/user/entities/user.entity";
+import { UserModule } from "./domain/user/user.module";
 
 import { FileUploadModule } from "./file-upload/file-upload.module";
-
-import { MultipleChoice } from "./quiz/entities/multiple-choice.entity";
-import { QuizMetaData } from "./quiz/entities/quiz-meta-data.entity";
-import { Quiz } from "./quiz/entities/quiz.entity";
-import { QuizModule } from "./quiz/quiz.module";
 import { envVariablesKeys } from "./shared/const/env.const";
 import { QueryFailedFilter } from "./shared/filter/query-failed.filter";
 import { ResponseTimeInterceptor } from "./shared/interceptor/response-time.interceptor";
 import { ResponseTransformerInterceptor } from "./shared/interceptor/response-transformer.interceptor";
 import { ThrottleInterceptor } from "./shared/interceptor/throttle.interceptor";
-import { User } from "./user/entities/user.entity";
-import { UserModule } from "./user/user.module";
 import { WorkerModule } from "./worker/worker.module";
 
 @Module({
@@ -105,21 +113,16 @@ import { WorkerModule } from "./worker/worker.module";
           Quiz,
           QuizMetaData,
           MultipleChoice,
+          Interview,
+          InterviewMetadata,
+          Concept,
+          ConceptMeta,
         ],
         synchronize: false,
         ssl: {
           rejectUnauthorized: false,
         },
-        // configService.get<string>(
-        //   envVariablesKeys.ENV,
-        // ) !== "prod",
-        // ...(configService.get<string>(
-        //   envVariablesKeys.ENV,
-        // ) === "prod" && {
-        //   ssl: {
-        //     rejectUnauthorized: false,
-        //   },
-        // }),
+
         // logging: true,
       }),
 
@@ -148,6 +151,10 @@ import { WorkerModule } from "./worker/worker.module";
       WorkerModule,
       (env: NodeJS.ProcessEnv) => env["TYPE"] === "worker",
     ),
+    CodeModule,
+    InterviewModule,
+    BlogModule,
+    ConceptModule,
   ],
   providers: [
     {

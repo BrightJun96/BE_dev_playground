@@ -9,4 +9,17 @@ const QUIZ = {
   MULTIPLE: "multipleChoices",
 };
 
-export const Relations = { MOVIE, QUIZ };
+const INTERVIEW = {
+  META: "interviewMetaData",
+};
+
+const CONCEPT = {
+  META: "conceptMeta",
+};
+
+export const Relations = {
+  MOVIE,
+  QUIZ,
+  INTERVIEW,
+  CONCEPT,
+};
