@@ -1,9 +1,15 @@
-import { Module } from '@nestjs/common';
-import { ConceptService } from './concept.service';
-import { ConceptController } from './concept.controller';
+import { Module } from "@nestjs/common";
+import { ConceptController } from "./concept.controller";
+import { ConceptService } from "./service/concept.service";
+import { CreateConceptService } from "./service/create-concept.service";
+import { UpdateConceptService } from "./service/update-concept.service";
 
 @Module({
   controllers: [ConceptController],
-  providers: [ConceptService],
+  providers: [
+    ConceptService,
+    CreateConceptService,
+    UpdateConceptService,
+  ],
 })
 export class ConceptModule {}

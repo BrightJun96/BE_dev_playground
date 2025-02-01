@@ -31,6 +31,7 @@ import { ChatRoom } from "./chat/entities/chat-room.entity";
 import { Chat } from "./chat/entities/chat.entity";
 import { CodeModule } from "./code/code.module";
 import { ConceptModule } from "./concept/concept.module";
+import { Concept } from "./concept/entities/concept.entity";
 
 import { FileUploadModule } from "./file-upload/file-upload.module";
 import { InterviewMetadata } from "./interview/entities/interview-metadata.entity";
@@ -113,21 +114,13 @@ import { WorkerModule } from "./worker/worker.module";
           MultipleChoice,
           Interview,
           InterviewMetadata,
+          Concept,
         ],
-        synchronize: true,
+        synchronize: false,
         // ssl: {
         //   rejectUnauthorized: false,
         // },
-        // configService.get<string>(
-        //   envVariablesKeys.ENV,
-        // ) !== "prod",
-        // ...(configService.get<string>(
-        //   envVariablesKeys.ENV,
-        // ) === "prod" && {
-        //   ssl: {
-        //     rejectUnauthorized: false,
-        //   },
-        // }),
+
         // logging: true,
       }),
 

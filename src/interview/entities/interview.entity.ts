@@ -3,37 +3,20 @@ import {
   Entity,
   JoinColumn,
   OneToOne,
-  PrimaryGeneratedColumn,
 } from "typeorm";
-import { Field } from "../../shared/enum/field.enum";
+import { SharedEntity } from "../../shared/entity/shared.entity";
+import { Tech } from "../../shared/enum/tech.enum";
 import { InterviewMetadata } from "./interview-metadata.entity";
 
-@Entity()
-export class Interview {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+@Entity({
+  comment: "면접",
+})
+export class Interview extends SharedEntity {
   @Column({
-    comment: "제목",
+    enum: Tech,
+    comment: "기술",
   })
-  title: string;
-
-  @Column({
-    comment: "내용",
-  })
-  content: string;
-
-  @Column({
-    comment: "URL-프론트에서 접근하기 위한 상세 경로",
-    unique: true,
-  })
-  detailUrl: string;
-
-  @Column({
-    enum: Field,
-    comment: "분야",
-  })
-  field: Field;
+  tech: Tech;
 
   @OneToOne(
     () => InterviewMetadata,

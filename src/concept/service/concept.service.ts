@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { CreateConceptDto } from './dto/create-concept.dto';
-import { UpdateConceptDto } from './dto/update-concept.dto';
+import { Injectable } from "@nestjs/common";
+import { CreateConceptDto } from "../dto/create-concept.dto";
+import { UpdateConceptDto } from "../dto/update-concept.dto";
 
 @Injectable()
 export class ConceptService {
   create(createConceptDto: CreateConceptDto) {
-    return 'This action adds a new concept';
+    return "This action adds a new concept";
   }
 
   findAll() {
