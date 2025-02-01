@@ -3,6 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { InterviewMetadata } from "./entities/interview-metadata.entity";
 import { Interview } from "./entities/interview.entity";
 import { InterviewController } from "./interview.controller";
+import { CreateInterviewService } from "./service/create-interview.service";
 import { InterviewService } from "./service/interview.service";
 
 @Module({
@@ -13,6 +14,6 @@ import { InterviewService } from "./service/interview.service";
     ]),
   ],
   controllers: [InterviewController],
-  providers: [InterviewService],
+  providers: [InterviewService, CreateInterviewService],
 })
 export class InterviewModule {}

@@ -43,5 +43,5 @@ export class Interview {
     },
   )
   @JoinColumn()
-  metaData: InterviewMetadata;
+  interviewMetaData: InterviewMetadata;
 }

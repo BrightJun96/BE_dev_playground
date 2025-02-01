@@ -85,7 +85,7 @@ export class CreateInterviewService {
         content: createInterviewDto.content,
         detailUrl: createInterviewDto.detailUrl,
         field: createInterviewDto.field,
-        metaData: { id: metaId },
+        interviewMetaData: { id: metaId },
       })
       .execute();
   }

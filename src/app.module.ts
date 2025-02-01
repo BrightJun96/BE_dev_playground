@@ -30,8 +30,11 @@ import { ChatModule } from "./chat/chat.module";
 import { ChatRoom } from "./chat/entities/chat-room.entity";
 import { Chat } from "./chat/entities/chat.entity";
 import { CodeModule } from "./code/code.module";
+import { ConceptModule } from "./concept/concept.module";
 
 import { FileUploadModule } from "./file-upload/file-upload.module";
+import { InterviewMetadata } from "./interview/entities/interview-metadata.entity";
+import { Interview } from "./interview/entities/interview.entity";
 import { InterviewModule } from "./interview/interview.module";
 
 import { MultipleChoice } from "./quiz/entities/multiple-choice.entity";
@@ -46,7 +49,6 @@ import { ThrottleInterceptor } from "./shared/interceptor/throttle.interceptor";
 import { User } from "./user/entities/user.entity";
 import { UserModule } from "./user/user.module";
 import { WorkerModule } from "./worker/worker.module";
-import { ConceptModule } from './concept/concept.module';
 
 @Module({
   imports: [
@@ -109,8 +111,10 @@ import { ConceptModule } from './concept/concept.module';
           Quiz,
           QuizMetaData,
           MultipleChoice,
+          Interview,
+          InterviewMetadata,
         ],
-        synchronize: false,
+        synchronize: true,
         // ssl: {
         //   rejectUnauthorized: false,
         // },
