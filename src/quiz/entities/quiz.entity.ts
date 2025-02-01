@@ -7,14 +7,9 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { BaseTable } from "../../shared/entity/base-table";
+import { Field } from "../../shared/enum/field.enum";
 import { MultipleChoice } from "./multiple-choice.entity";
 import { QuizMetaData } from "./quiz-meta-data.entity";
-
-export enum Field {
-  FrontEnd = "FRONTEND",
-  BackEnd = "BACKEND",
-  Database = "DATABASE",
-}
 
 @Entity({
   comment: "퀴즈",

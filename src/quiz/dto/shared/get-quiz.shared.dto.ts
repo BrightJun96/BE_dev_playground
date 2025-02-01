@@ -1,6 +1,7 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { ApiProperty, OmitType } from "@nestjs/swagger";
-import { Field, Quiz } from "../../entities/quiz.entity";
+import { Field } from "../../../shared/enum/field.enum";
+import { Quiz } from "../../entities/quiz.entity";
 import { GetQuizMetaDataSharedDto } from "./get-quiz-meta-data.shared.dto";
 import { GetQuizMultipleChoiceSharedDto } from "./get-quiz-multiple-choice.shared.dto";
 

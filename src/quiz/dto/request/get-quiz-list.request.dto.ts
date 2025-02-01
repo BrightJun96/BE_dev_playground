@@ -5,7 +5,7 @@ import {
   IsString,
 } from "class-validator";
 import { CursorPaginationDto } from "../../../shared/dto/cursor-pagination.dto";
-import { Field } from "../../entities/quiz.entity";
+import { Field } from "../../../shared/enum/field.enum";
 
 export class GetQuizListRequestDto extends CursorPaginationDto {
   @ApiPropertyOptional({ description: "제목 검색 필터" })

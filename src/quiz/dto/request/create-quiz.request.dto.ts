@@ -8,7 +8,7 @@ import {
   IsString,
   ValidateNested,
 } from "class-validator";
-import { Field } from "../../entities/quiz.entity";
+import { Field } from "../../../shared/enum/field.enum";
 import { GetQuizSharedDto } from "../shared/get-quiz.shared.dto";
 import { CreateMultipleChoiceRequestDto } from "./create-multiple-choice.request.dto";
 import { CreateQuizMetaDataDtoRequest } from "./create-quiz-meta-data.dto.request";

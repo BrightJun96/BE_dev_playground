@@ -9,7 +9,7 @@ import {
   IsString,
   ValidateNested,
 } from "class-validator";
-import { Field } from "../../entities/quiz.entity";
+import { Field } from "../../../shared/enum/field.enum";
 import { GetQuizSharedDto } from "../shared/get-quiz.shared.dto";
 import { UpdateMultipleChoiceRequestDto } from "./update-multiple-choice.request.dto";
 import { UpdateQuizMetaDataRequestDto } from "./update-quiz-meta-data.request.dto";
