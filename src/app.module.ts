@@ -25,11 +25,14 @@ import { AuthModule } from "./auth/auth.module";
 import { AuthGuard } from "./auth/guard/auth.guard";
 import { RbacGuard } from "./auth/guard/rbac.guard";
 import { BearerTokenMiddleware } from "./auth/middleware/bearer-token.middleware";
+import { BlogModule } from "./blog/blog.module";
 import { ChatModule } from "./chat/chat.module";
 import { ChatRoom } from "./chat/entities/chat-room.entity";
 import { Chat } from "./chat/entities/chat.entity";
+import { CodeModule } from "./code/code.module";
 
 import { FileUploadModule } from "./file-upload/file-upload.module";
+import { InterviewModule } from "./interview/interview.module";
 
 import { MultipleChoice } from "./quiz/entities/multiple-choice.entity";
 import { QuizMetaData } from "./quiz/entities/quiz-meta-data.entity";
@@ -43,9 +46,7 @@ import { ThrottleInterceptor } from "./shared/interceptor/throttle.interceptor";
 import { User } from "./user/entities/user.entity";
 import { UserModule } from "./user/user.module";
 import { WorkerModule } from "./worker/worker.module";
-import { CodeModule } from './code/code.module';
-import { InterviewModule } from './interview/interview.module';
-import { BlogModule } from './blog/blog.module';
+import { ConceptModule } from './concept/concept.module';
 
 @Module({
   imports: [
@@ -110,9 +111,9 @@ import { BlogModule } from './blog/blog.module';
           MultipleChoice,
         ],
         synchronize: false,
-        ssl: {
-          rejectUnauthorized: false,
-        },
+        // ssl: {
+        //   rejectUnauthorized: false,
+        // },
         // configService.get<string>(
         //   envVariablesKeys.ENV,
         // ) !== "prod",
@@ -154,6 +155,7 @@ import { BlogModule } from './blog/blog.module';
     CodeModule,
     InterviewModule,
     BlogModule,
+    ConceptModule,
   ],
   providers: [
     {
