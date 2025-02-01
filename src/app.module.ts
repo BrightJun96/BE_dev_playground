@@ -45,6 +45,7 @@ import { UserModule } from "./user/user.module";
 import { WorkerModule } from "./worker/worker.module";
 import { CodeModule } from './code/code.module';
 import { InterviewModule } from './interview/interview.module';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
   imports: [
@@ -152,6 +153,7 @@ import { InterviewModule } from './interview/interview.module';
     ),
     CodeModule,
     InterviewModule,
+    BlogModule,
   ],
   providers: [
     {
