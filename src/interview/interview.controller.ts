@@ -9,7 +9,11 @@ import {
   Post,
   UseInterceptors,
 } from "@nestjs/common";
-import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from "@nestjs/swagger";
 import { QueryRunner as QR } from "typeorm";
 import { Public } from "../auth/decorator/public.decorator";
 import { RBAC } from "../auth/decorator/rbac.decorator";
@@ -25,6 +29,7 @@ import { InterviewService } from "./service/interview.service";
 import { UpdateInterviewService } from "./service/update-interview.service";
 
 @Controller("interview")
+@ApiTags("면접")
 export class InterviewController {
   constructor(
     private readonly interviewService: InterviewService,
