@@ -18,16 +18,18 @@ import { ListSharedResponseDto } from "../shared/dto/list.shared.response.dto";
 import { TransactionInterceptor } from "../shared/interceptor/transaction.interceptor";
 import { Role } from "../user/entities/user.entity";
 import { CreateInterviewDto } from "./dto/request/create-interview.dto";
-import { UpdateInterviewDto } from "./dto/request/update-interview.dto";
+import { UpdateInterviewRequestDto } from "./dto/request/update-interview.request.dto";
 import { GetInterviewSharedDto } from "./dto/shared/get-interview.shared.dto";
 import { CreateInterviewService } from "./service/create-interview.service";
 import { InterviewService } from "./service/interview.service";
+import { UpdateInterviewService } from "./service/update-interview.service";
 
 @Controller("interview")
 export class InterviewController {
   constructor(
     private readonly interviewService: InterviewService,
     private readonly createInterviewService: CreateInterviewService,
+    private readonly updateInterviewService: UpdateInterviewService,
   ) {}
 
   /**
@@ -90,19 +92,34 @@ export class InterviewController {
 
   // 인터뷰 데이터 수정
   @Patch(":id")
+  @RBAC(Role.admin)
+  @UseInterceptors(TransactionInterceptor)
+  @ApiOperation({
+    description: "관리자-인터뷰 수정",
+  })
+  @ApiResponse({
+    status: 201,
+    type: GetInterviewSharedDto,
+  })
   update(
-    @Param("id") id: string,
-    @Body() updateInterviewDto: UpdateInterviewDto,
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateInterviewDto: UpdateInterviewRequestDto,
+    @QueryRunner() qr: QR,
   ) {
-    return this.interviewService.update(
-      +id,
+    return this.updateInterviewService.update(
+      id,
       updateInterviewDto,
+      qr,
     );
   }
 
   // 인터뷰 데이터 삭제
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.interviewService.remove(+id);
+  @RBAC(Role.admin)
+  @ApiOperation({
+    description: "관리자-인터뷰 삭제",
+  })
+  remove(@Param("id", ParseIntPipe) id: number) {
+    return this.interviewService.remove(id);
   }
 }

@@ -5,7 +5,7 @@ import {
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Relations } from "../../shared/const/relation.const";
-import { UpdateInterviewDto } from "../dto/request/update-interview.dto";
+import { UpdateInterviewRequestDto } from "../dto/request/update-interview.request.dto";
 import { Interview } from "../entities/interview.entity";
 
 @Injectable()
@@ -41,7 +41,7 @@ export class InterviewService {
 
   update(
     id: number,
-    updateInterviewDto: UpdateInterviewDto,
+    updateInterviewDto: UpdateInterviewRequestDto,
   ) {
     return `This action updates a #${id} interview`;
   }
