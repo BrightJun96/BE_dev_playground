@@ -118,7 +118,7 @@ import { WorkerModule } from "./worker/worker.module";
           Concept,
           ConceptMeta,
         ],
-        synchronize: false,
+        synchronize: true,
         // ssl: {
         //   rejectUnauthorized: false,
         // },

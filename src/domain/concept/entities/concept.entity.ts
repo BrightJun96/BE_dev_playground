@@ -1,4 +1,9 @@
-import { Column, Entity, OneToOne } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+} from "typeorm";
 import { SharedEntity } from "../../../shared/entity/shared.entity";
 import { Tech } from "../../../shared/enum/tech.enum";
 import { ConceptMeta } from "./concept-meta.entity";
@@ -20,5 +25,6 @@ export class Concept extends SharedEntity {
       cascade: true,
     },
   )
+  @JoinColumn()
   conceptMeta: ConceptMeta;
 }
