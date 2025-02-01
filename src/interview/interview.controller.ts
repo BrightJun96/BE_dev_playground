@@ -62,7 +62,6 @@ export class InterviewController {
   // 상세 조회
   @Get(":id")
   @RBAC(Role.admin)
-  @UseInterceptors(TransactionInterceptor)
   @ApiOperation({
     description: "관리자-인터뷰 상세 조회",
   })

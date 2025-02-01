@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { CreateConceptDto } from "../dto/create-concept.dto";
-import { UpdateConceptDto } from "../dto/update-concept.dto";
+import { CreateConceptRequestDto } from "../dto/request/create-concept.request.dto";
+import { UpdateConceptRequestDto } from "../dto/request/update-concept.request.dto";
 
 @Injectable()
 export class ConceptService {
-  create(createConceptDto: CreateConceptDto) {
+  create(createConceptDto: CreateConceptRequestDto) {
     return "This action adds a new concept";
   }
 
@@ -16,7 +16,10 @@ export class ConceptService {
     return `This action returns a #${id} concept`;
   }
 
-  update(id: number, updateConceptDto: UpdateConceptDto) {
+  update(
+    id: number,
+    updateConceptDto: UpdateConceptRequestDto,
+  ) {
     return `This action updates a #${id} concept`;
   }
 

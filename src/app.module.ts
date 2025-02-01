@@ -31,6 +31,7 @@ import { ChatRoom } from "./chat/entities/chat-room.entity";
 import { Chat } from "./chat/entities/chat.entity";
 import { CodeModule } from "./code/code.module";
 import { ConceptModule } from "./concept/concept.module";
+import { ConceptMeta } from "./concept/entities/concept-meta.entity";
 import { Concept } from "./concept/entities/concept.entity";
 
 import { FileUploadModule } from "./file-upload/file-upload.module";
@@ -115,6 +116,7 @@ import { WorkerModule } from "./worker/worker.module";
           Interview,
           InterviewMetadata,
           Concept,
+          ConceptMeta,
         ],
         synchronize: false,
         // ssl: {
