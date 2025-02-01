@@ -26,6 +26,7 @@ export class ConceptService {
       where: {
         id,
       },
+      relations: [Relations.CONCEPT.META],
     });
 
     if (!concept) {

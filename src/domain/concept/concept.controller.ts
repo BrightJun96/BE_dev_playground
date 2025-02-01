@@ -78,6 +78,7 @@ export class ConceptController {
     return this.updateConceptService.update(
       id,
       updateConceptDto,
+      qr,
     );
   }
 
