@@ -38,6 +38,23 @@ export class ConceptService {
     return concept;
   }
 
+  async findOneByUrl(url: string) {
+    const concept = await this.conceptRepository.findOne({
+      where: {
+        detailUrl: url,
+      },
+      relations: [Relations.CONCEPT.META],
+    });
+
+    if (!concept) {
+      throw new BadRequestException(
+        "존재하지 않는 데이터입니다.",
+      );
+    }
+
+    return concept;
+  }
+
   async remove(id: number): Promise<DeleteResponseDto> {
     await this.findOne(id);
     await this.conceptRepository.delete(id);
