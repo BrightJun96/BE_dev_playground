@@ -4,7 +4,7 @@ import {
 } from "@nestjs/common";
 import { QueryRunner } from "typeorm";
 import { Relations } from "../../../shared/const/relation.const";
-import { CreateMetadataSharedDto } from "../../../shared/dto/create-metadata.shared.dto";
+import { MetadataSharedDto } from "../../../shared/dto/metadata.shared.dto";
 import { CreateConceptRequestDto } from "../dto/request/create-concept.request.dto";
 import { ConceptMeta } from "../entities/concept-meta.entity";
 import { Concept } from "../entities/concept.entity";
@@ -55,7 +55,7 @@ export class CreateConceptService {
   }
 
   createMeta(
-    createMeta: CreateMetadataSharedDto,
+    createMeta: MetadataSharedDto,
     qr: QueryRunner,
   ) {
     return qr.manager

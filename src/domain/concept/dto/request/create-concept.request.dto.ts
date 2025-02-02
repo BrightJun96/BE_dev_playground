@@ -5,7 +5,7 @@ import {
   IsString,
   ValidateNested,
 } from "class-validator";
-import { CreateMetadataSharedDto } from "../../../../shared/dto/create-metadata.shared.dto";
+import { MetadataSharedDto } from "../../../../shared/dto/metadata.shared.dto";
 import { Field } from "../../../../shared/enum/field.enum";
 import { Tech } from "../../../../shared/enum/tech.enum";
 
@@ -31,6 +31,6 @@ export class CreateConceptRequestDto {
   tech: Tech; //  분야
 
   @ValidateNested()
-  @Type(() => CreateMetadataSharedDto)
-  metaData: CreateMetadataSharedDto; // 메타데이터
+  @Type(() => MetadataSharedDto)
+  metaData: MetadataSharedDto; // 메타데이터
 }
