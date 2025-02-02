@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseInterceptors,
 } from "@nestjs/common";
 import {
@@ -21,6 +22,7 @@ import { Public } from "../auth/decorator/public.decorator";
 import { RBAC } from "../auth/decorator/rbac.decorator";
 import { Role } from "../user/entities/user.entity";
 import { CreateConceptRequestDto } from "./dto/request/create-concept.request.dto";
+import { GetConceptListRequestDto } from "./dto/request/get-concept-list.request.dto";
 import { UpdateConceptRequestDto } from "./dto/request/update-concept.request.dto";
 import { GetConceptSharedDto } from "./dto/shared/get-concept.shared.dto";
 import { ConceptService } from "./service/concept.service";
@@ -49,8 +51,13 @@ export class ConceptController {
     status: 201,
     type: [GetConceptSharedDto],
   })
-  findAll() {
-    return this.conceptService.findAll();
+  findAll(
+    @Query()
+    getConceptListRequestDto: GetConceptListRequestDto,
+  ) {
+    return this.conceptService.findAll(
+      getConceptListRequestDto,
+    );
   }
 
   // 상세-URL
