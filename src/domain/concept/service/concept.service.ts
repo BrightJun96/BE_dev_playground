@@ -6,6 +6,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Relations } from "../../../shared/const/relation.const";
 import { DeleteResponseDto } from "../../../shared/dto/delete.response.dto";
+import { GetConceptListRequestDto } from "../dto/request/get-concept-list.request.dto";
 import { Concept } from "../entities/concept.entity";
 
 @Injectable()
@@ -15,9 +16,22 @@ export class ConceptService {
     private readonly conceptRepository: Repository<Concept>,
   ) {}
 
-  async findAll() {
+  async findAll(
+    getConceptListRequestDto: GetConceptListRequestDto,
+  ) {
+    const where: any = {};
+
+    if (getConceptListRequestDto.tech) {
+      where.tech = getConceptListRequestDto.tech;
+    }
+
+    if (getConceptListRequestDto.field) {
+      where.field = getConceptListRequestDto.field;
+    }
+
     return await this.conceptRepository.find({
       relations: [Relations.CONCEPT.META],
+      where,
     });
   }
 
