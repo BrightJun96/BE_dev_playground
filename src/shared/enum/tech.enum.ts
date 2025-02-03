@@ -1,7 +1,8 @@
 export enum Tech {
   Javascript = "JAVASCRIPT",
-  Typescript = "Typescript",
+  Typescript = "TYPESCRIPT",
   ReactJs = "REACTJS",
   NextJs = "NEXTJS",
   NestJs = "NESTJS",
+  Docker = "DOCKER",
 }
