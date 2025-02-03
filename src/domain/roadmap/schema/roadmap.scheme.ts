@@ -33,4 +33,4 @@ export class Roadmap {
 }
 
 export const RoadmapSchema =
-  SchemaFactory.createForClass(Roadmap);
+  SchemaFactory.createForClass(Roadmap); // class를 mongoose schema로 변환

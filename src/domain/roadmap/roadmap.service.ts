@@ -44,13 +44,50 @@ export class RoadmapService {
       .exec();
   }
 
+  async populateChildren(roadmap: any) {
+    if (
+      !roadmap ||
+      !roadmap.children ||
+      roadmap.children.length === 0
+    ) {
+      return roadmap;
+    }
+
+    roadmap.children = await this.roadmapModel
+      .find({ _id: { $in: roadmap.children } })
+      .populate("children")
+      .lean() // lean() 적용하여 성능 향상
+      .exec();
+
+    roadmap.children = await Promise.all(
+      roadmap.children.map(
+        async (child) => await this.populateChildren(child),
+      ),
+    );
+
+    return roadmap;
+  }
+  async getRoadmapByTitle(title: string) {
+    const roadmap = await this.roadmapModel
+      .findOne({
+        title,
+      })
+      .populate("children")
+      .exec();
+
+    if (!roadmap) {
+      return null;
+    }
+
+    return await this.populateChildren(roadmap);
+  }
+
   async getAllRoadmaps() {
     return this.roadmapModel
       .find()
       .populate("children")
       .exec();
   }
-
   async updateChildren(
     parentId: Types.ObjectId,
     childId: Types.ObjectId,
