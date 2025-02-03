@@ -6,4 +6,6 @@ export enum Tech {
   NestJs = "NESTJS",
   Docker = "DOCKER",
   Aws = "AWS",
+  Mongoose = "MONGOOSE",
+  PostgreSQL = "POSTGRESQL",
 }
