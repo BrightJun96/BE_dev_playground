@@ -8,6 +8,8 @@ import {
   Post,
 } from "@nestjs/common";
 import { Types } from "mongoose";
+import { CreateRoadmapRequestDto } from "./dto/create-roadmap.request.dto";
+import { UpdateRoadmapRequestDto } from "./dto/update-roadmap.request.dto";
 import { RoadmapService } from "./roadmap.service";
 
 @Controller("roadmap")
@@ -18,25 +20,23 @@ export class RoadmapController {
 
   @Post()
   async createRoadmap(
-    @Body() body: { title: string; parentId?: string },
+    @Body()
+    createRoadmapRequestDto: CreateRoadmapRequestDto,
   ) {
     return this.roadmapService.createRoadmap(
-      body.title,
-      body.parentId
-        ? new Types.ObjectId(body.parentId)
-        : undefined,
+      createRoadmapRequestDto,
     );
   }
 
   @Patch(":id")
   async update(
     @Param("id") id: string,
-    @Body("title")
-    title: string,
+    @Body()
+    updateRoadmapRequestDto: UpdateRoadmapRequestDto,
   ) {
     return this.roadmapService.update(
       new Types.ObjectId(id),
-      title,
+      updateRoadmapRequestDto,
     );
   }
 

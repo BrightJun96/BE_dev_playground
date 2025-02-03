@@ -13,6 +13,11 @@ export class Roadmap {
   title: string;
 
   @Prop({
+    required: false,
+  })
+  link?: string;
+
+  @Prop({
     type: Types.ObjectId,
     ref: "Roadmap",
     default: null,

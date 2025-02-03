@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from "mongoose";
+import { CreateRoadmapRequestDto } from "./dto/create-roadmap.request.dto";
+import { UpdateRoadmapRequestDto } from "./dto/update-roadmap.request.dto";
 import {
   Roadmap,
   RoadmapDocument,
@@ -14,18 +16,23 @@ export class RoadmapService {
   ) {}
 
   async createRoadmap(
-    title: string,
-    parentId?: Types.ObjectId,
+    createRoadmapRequestDto: CreateRoadmapRequestDto,
   ) {
+    const { title, parentId, link } =
+      createRoadmapRequestDto;
     const roadmap = new this.roadmapModel({
       title,
+      link,
       parent: parentId || null,
     });
     await roadmap.save();
 
     // 부모 노드의 children 필드 업데이트
     if (parentId) {
-      await this.updateChildren(parentId, roadmap._id);
+      await this.updateChildren(
+        new Types.ObjectId(parentId),
+        roadmap._id,
+      );
     }
     return roadmap;
   }
@@ -55,10 +62,13 @@ export class RoadmapService {
     );
   }
 
-  async update(id: Types.ObjectId, title: string) {
+  async update(
+    id: Types.ObjectId,
+    updateRoadmapRequestDto: UpdateRoadmapRequestDto,
+  ) {
     return this.roadmapModel.findByIdAndUpdate(
       id,
-      { $set: { title } },
+      { $set: updateRoadmapRequestDto },
       { new: true, useFindAndModify: false }, //  업데이트 후 최신 데이터 반환
     );
   }
