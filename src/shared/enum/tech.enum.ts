@@ -5,4 +5,5 @@ export enum Tech {
   NextJs = "NEXTJS",
   NestJs = "NESTJS",
   Docker = "DOCKER",
+  Aws = "AWS",
 }
