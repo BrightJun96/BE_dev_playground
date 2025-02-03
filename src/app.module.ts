@@ -15,6 +15,7 @@ import {
   APP_GUARD,
   APP_INTERCEPTOR,
 } from "@nestjs/core";
+import { MongooseModule } from "@nestjs/mongoose";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -41,6 +42,7 @@ import { MultipleChoice } from "./domain/quiz/entities/multiple-choice.entity";
 import { QuizMetaData } from "./domain/quiz/entities/quiz-meta-data.entity";
 import { Quiz } from "./domain/quiz/entities/quiz.entity";
 import { QuizModule } from "./domain/quiz/quiz.module";
+import { RoadmapModule } from "./domain/roadmap/roadmap.module";
 import { User } from "./domain/user/entities/user.entity";
 import { UserModule } from "./domain/user/user.module";
 
@@ -85,6 +87,12 @@ import { WorkerModule } from "./worker/worker.module";
         REDIS_PASSWORD: Joi.string().required(),
       }),
     }),
+
+    // 몽고 DB
+    MongooseModule.forRoot(process.env.MONGO_DB, {
+      dbName: "dev-lounge",
+    }),
+
     // TypeORM 설정
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
@@ -155,6 +163,7 @@ import { WorkerModule } from "./worker/worker.module";
     InterviewModule,
     BlogModule,
     ConceptModule,
+    RoadmapModule,
   ],
   providers: [
     {
