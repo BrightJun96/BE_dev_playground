@@ -21,6 +21,8 @@ import { QueryRunner as QR } from "typeorm/query-runner/QueryRunner";
 import { QueryRunner } from "../../shared/decorator/query-runner.decorator";
 import { TransactionInterceptor } from "../../shared/interceptor/transaction.interceptor";
 import { Public } from "../auth/decorator/public.decorator";
+import { RBAC } from "../auth/decorator/rbac.decorator";
+import { Role } from "../user/entities/user.entity";
 import { CheckAnswerRequestDto } from "./dto/request/check-answer.request.dto";
 import { CreateQuizRequestDto } from "./dto/request/create-quiz.request.dto";
 import { GetQuizListRequestDto } from "./dto/request/get-quiz-list.request.dto";
@@ -213,7 +215,7 @@ export class QuizController {
    * 퀴즈 삭제
    */
   @Delete(":id")
-  // @RBAC(Role.admin)
+  @RBAC(Role.admin)
   @Public()
   @ApiOperation({
     description: "관리자-퀴즈 삭제",

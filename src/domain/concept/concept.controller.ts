@@ -79,7 +79,7 @@ export class ConceptController {
    * 관리자
    */
   @Post()
-  // @RBAC(Role.admin)
+  @RBAC(Role.admin)
   @Public()
   @UseInterceptors(TransactionInterceptor)
   @ApiOperation({
@@ -96,7 +96,7 @@ export class ConceptController {
   }
 
   @Patch(":id")
-  // @RBAC(Role.admin)
+  @RBAC(Role.admin)
   @Public()
   @UseInterceptors(TransactionInterceptor)
   @ApiOperation({
@@ -115,7 +115,7 @@ export class ConceptController {
   }
 
   @Get(":id")
-  // @RBAC(Role.admin)
+  @RBAC(Role.admin)
   @Public()
   @ApiOperation({
     description: "관리자-개념 상세 조회",
