@@ -26,7 +26,6 @@ import { AuthModule } from "./domain/auth/auth.module";
 import { AuthGuard } from "./domain/auth/guard/auth.guard";
 import { RbacGuard } from "./domain/auth/guard/rbac.guard";
 import { BearerTokenMiddleware } from "./domain/auth/middleware/bearer-token.middleware";
-import { BlogModule } from "./domain/blog/blog.module";
 import { ChatModule } from "./domain/chat/chat.module";
 import { ChatRoom } from "./domain/chat/entities/chat-room.entity";
 import { Chat } from "./domain/chat/entities/chat.entity";
@@ -161,7 +160,6 @@ import { WorkerModule } from "./worker/worker.module";
     ),
     CodeModule,
     InterviewModule,
-    BlogModule,
     ConceptModule,
     RoadmapModule,
   ],

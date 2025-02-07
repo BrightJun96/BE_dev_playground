@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCodeDto } from './dto/create-code.dto';
-import { UpdateCodeDto } from './dto/update-code.dto';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { CreateCodeDto } from "./dto/create-code.dto";
+import { UpdateCodeDto } from "./dto/update-code.dto";
+import { Code, CodeDocument } from "./schemas/code.schema";
 
 @Injectable()
 export class CodeService {
-  create(createCodeDto: CreateCodeDto) {
-    return 'This action adds a new code';
+  constructor(
+    @InjectModel(Code.name)
+    private codeModel: Model<CodeDocument>,
+  ) {}
+
+  async create(
+    createCodeDto: CreateCodeDto,
+  ): Promise<Code> {
+    const createdCode = new this.codeModel(createCodeDto);
+    return createdCode.save();
   }
 
-  findAll() {
-    return `This action returns all code`;
+  async findAll(): Promise<Code[]> {
+    return this.codeModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} code`;
+  async findOne(id: string): Promise<Code> {
+    return this.codeModel.findById(id).exec();
   }
 
-  update(id: number, updateCodeDto: UpdateCodeDto) {
-    return `This action updates a #${id} code`;
+  async update(
+    id: string,
+    updateCodeDto: UpdateCodeDto,
+  ): Promise<Code> {
+    return this.codeModel
+      .findByIdAndUpdate(id, updateCodeDto, { new: true })
+      .exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} code`;
+  async remove(id: string): Promise<Code> {
+    return this.codeModel.findByIdAndDelete(id).exec();
   }
 }
