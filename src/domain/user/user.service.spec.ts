@@ -5,8 +5,8 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { Test, TestingModule } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
-import * as bcrypt from "bcrypt";
-import { describe } from "node:test";
+import * as bcrypt from "bcryptjs";
+
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
