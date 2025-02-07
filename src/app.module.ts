@@ -29,7 +29,6 @@ import { BearerTokenMiddleware } from "./domain/auth/middleware/bearer-token.mid
 import { ChatModule } from "./domain/chat/chat.module";
 import { ChatRoom } from "./domain/chat/entities/chat-room.entity";
 import { Chat } from "./domain/chat/entities/chat.entity";
-import { CodeModule } from "./domain/code/code.module";
 import { ConceptModule } from "./domain/concept/concept.module";
 import { ConceptMeta } from "./domain/concept/entities/concept-meta.entity";
 import { Concept } from "./domain/concept/entities/concept.entity";
@@ -158,7 +157,7 @@ import { WorkerModule } from "./worker/worker.module";
       WorkerModule,
       (env: NodeJS.ProcessEnv) => env["TYPE"] === "worker",
     ),
-    CodeModule,
+    // CodeModule,
     InterviewModule,
     ConceptModule,
     RoadmapModule,

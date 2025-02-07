@@ -1,27 +1,21 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-} from "@nestjs/common";
+import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { CodeService } from "./code.service";
-import { CreateCodeDto } from "./dto/create-code.dto";
 
 @Controller("code")
 @ApiTags("코드 템플릿")
 export class CodeController {
   constructor(private readonly codeService: CodeService) {}
 
-  @Post()
-  create(@Body() createCodeDto: CreateCodeDto) {
-    return this.codeService.create(createCodeDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.codeService.findAll();
-  }
+  // @Post()
+  // create(@Body() createCodeDto: CreateCodeDto) {
+  //   return this.codeService.create(createCodeDto);
+  // }
+  //
+  // @Get()
+  // findAll() {
+  //   return this.codeService.findAll();
+  // }
 
   // @Get(":id")
   // findOne(@Param("id") id: string) {
