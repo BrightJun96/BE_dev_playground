@@ -88,12 +88,6 @@ export class RoadmapService {
   }
 
   async getAllRoadmaps() {
-    // return Promise.all(
-    //   roadmaps.map(
-    //     async (roadmap) =>
-    //       await this.populateChildren(roadmap),
-    //   ),
-    // );
     return await this.roadmapModel
       .find({ parent: null })
       .populate("children")
