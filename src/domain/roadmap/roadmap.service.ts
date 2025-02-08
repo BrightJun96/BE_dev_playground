@@ -1,4 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from "mongoose";
 import { CreateRoadmapRequestDto } from "./dto/create-roadmap.request.dto";
@@ -76,18 +79,28 @@ export class RoadmapService {
       .exec();
 
     if (!roadmap) {
-      return null;
+      throw new BadRequestException(
+        "해당 로드맵은 존재하지 않습니다.",
+      );
     }
 
     return await this.populateChildren(roadmap);
   }
 
   async getAllRoadmaps() {
-    return this.roadmapModel
-      .find()
+    // return Promise.all(
+    //   roadmaps.map(
+    //     async (roadmap) =>
+    //       await this.populateChildren(roadmap),
+    //   ),
+    // );
+    return await this.roadmapModel
+      .find({ parent: null })
       .populate("children")
+      .lean()
       .exec();
   }
+
   async updateChildren(
     parentId: Types.ObjectId,
     childId: Types.ObjectId,
