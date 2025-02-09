@@ -8,7 +8,7 @@ https://thedevlounge.com API 서버입니다.
 
 # Deployment(github action flow)
 1. 앱 도커이미지 빌드 후 도커헙 푸시
-2. EC2에서 도커 이미지 pull
+2. EC2에서 푸시된 도커 이미지 pull
 3. 앱+prometheus+grafana => docker compose로 실행
 
 ## Monitoring
