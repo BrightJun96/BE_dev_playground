@@ -85,7 +85,6 @@ jobs:
 #            -t jjalseu/devlounge:latest \
 #            -t jjalseu/devlounge:${{github.sha}} \
 #            --push -f ./Dockerfile --target production .
-
       - name: Install SSH Key
         run: |
           echo "${{ secrets.EC2_PEM_KEY }}" | tr -d '\r' > so-precious-pie.pem
