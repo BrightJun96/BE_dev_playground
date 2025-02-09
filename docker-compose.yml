@@ -4,18 +4,12 @@ services:
   #SERVER
   app:
     container_name: devlounge
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: development
-    command: pnpm run start:dev
+    image: jjalseu/devlounge:latest
+    command: pnpm run start:prod
     ports:
       - "3000:3000"
     env_file:
       - .env
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
 #    networks:
 #      - monitoring  # 같은 네트워크 추가
 #
