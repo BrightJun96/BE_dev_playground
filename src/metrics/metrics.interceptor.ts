@@ -15,8 +15,8 @@ export class MetricsInterceptor
 {
   // status code 2XX 요청 성공동안 걸리는 시간
   private readonly requestSuccessHistogram = new Histogram({
-    name: "nestjs_success_requests",
-    help: "NestJs success requests - duration in seconds",
+    name: "devlounge_success_requests",
+    help: "devlounge success requests - duration in seconds",
     labelNames: [
       "handler",
       "controller",
@@ -30,8 +30,8 @@ export class MetricsInterceptor
   });
   // status code != 2XX 실패 동안 걸리는 시간
   private readonly requestFailHistogram = new Histogram({
-    name: "nestjs_fail_requests",
-    help: "NestJs fail requests - duration in seconds",
+    name: "devlounge_fail_requests",
+    help: "devlounge fail requests - duration in seconds",
     labelNames: [
       "handler",
       "controller",
@@ -45,8 +45,8 @@ export class MetricsInterceptor
   });
   // 요청 실패 횟수
   private readonly failureCounter = new Counter({
-    name: "nestjs_requests_failed_count",
-    help: "NestJs requests that failed",
+    name: "devlounge_requests_failed_count",
+    help: "devlounge requests that failed",
     labelNames: [
       "handler",
       "controller",
@@ -66,8 +66,8 @@ export class MetricsInterceptor
     version: string;
   }): MetricsInterceptor {
     new Gauge({
-      name: "nestjs_info",
-      help: "NestJs service version info",
+      name: "devlounge_info",
+      help: "devlounge service version info",
       labelNames: ["domain", "name", "version"],
     }).set(
       {

@@ -42,11 +42,13 @@ export class MetricsService implements OnModuleInit {
   // 기존 메트릭 get
   private initializeMetrics() {
     if (
-      !register.getSingleMetric("nestjs_success_requests")
+      !register.getSingleMetric(
+        "devlounge_success_requests",
+      )
     ) {
       this.requestSuccessHistogram = new Histogram({
-        name: "nestjs_success_requests",
-        help: "NestJs success requests - duration in seconds",
+        name: "devlounge_success_requests",
+        help: "devlounge success requests - duration in seconds",
         labelNames: [
           "handler",
           "controller",
@@ -61,14 +63,16 @@ export class MetricsService implements OnModuleInit {
     } else {
       this.requestSuccessHistogram =
         register.getSingleMetric(
-          "nestjs_success_requests",
+          "devlounge_success_requests",
         ) as Histogram<string>;
     }
 
-    if (!register.getSingleMetric("nestjs_fail_requests")) {
+    if (
+      !register.getSingleMetric("devlounge_fail_requests")
+    ) {
       this.requestFailHistogram = new Histogram({
-        name: "nestjs_fail_requests",
-        help: "NestJs fail requests - duration in seconds",
+        name: "devlounge_fail_requests",
+        help: "devlounge fail requests - duration in seconds",
         labelNames: [
           "handler",
           "controller",
@@ -88,12 +92,12 @@ export class MetricsService implements OnModuleInit {
 
     if (
       !register.getSingleMetric(
-        "nestjs_requests_failed_count",
+        "devlounge_requests_failed_count",
       )
     ) {
       this.failureCounter = new Counter({
-        name: "nestjs_requests_failed_count",
-        help: "NestJs requests that failed",
+        name: "devlounge_requests_failed_count",
+        help: "devlounge requests that failed",
         labelNames: [
           "handler",
           "route",
@@ -104,7 +108,7 @@ export class MetricsService implements OnModuleInit {
       });
     } else {
       this.failureCounter = register.getSingleMetric(
-        "nestjs_requests_failed_count",
+        "devlounge_requests_failed_count",
       ) as Counter<string>;
     }
   }
