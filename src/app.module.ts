@@ -19,6 +19,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { TypeOrmModule } from "@nestjs/typeorm";
+
 import * as redisStore from "cache-manager-redis-store";
 import * as Joi from "joi";
 import { join } from "path";
@@ -45,6 +46,8 @@ import { User } from "./domain/user/entities/user.entity";
 import { UserModule } from "./domain/user/user.module";
 
 import { FileUploadModule } from "./file-upload/file-upload.module";
+import { MetricsInterceptor } from "./metrics/metrics.interceptor";
+import { MetricsModule } from "./metrics/metrics.module";
 import { envVariablesKeys } from "./shared/const/env.const";
 import { QueryFailedFilter } from "./shared/filter/query-failed.filter";
 import { ResponseTimeInterceptor } from "./shared/interceptor/response-time.interceptor";
@@ -54,6 +57,7 @@ import { WorkerModule } from "./worker/worker.module";
 
 @Module({
   imports: [
+    MetricsModule,
     // 환경변수 설정
     ConfigModule.forRoot({
       // 어떤 파일에서든 process.env로 접근 가능토록 하는 설정
@@ -142,6 +146,7 @@ import { WorkerModule } from "./worker/worker.module";
     UserModule,
     FileUploadModule,
     QuizModule,
+
     CacheModule.register({
       store: redisStore,
       host: process.env.REDIS_HOST,
@@ -186,6 +191,10 @@ import { WorkerModule } from "./worker/worker.module";
     {
       provide: APP_INTERCEPTOR,
       useClass: ThrottleInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: MetricsInterceptor,
     },
   ],
 })

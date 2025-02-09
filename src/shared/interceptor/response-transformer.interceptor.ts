@@ -18,6 +18,12 @@ export class ResponseTransformerInterceptor<T>
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<Response<T>> {
+    const request = context.switchToHttp().getRequest();
+
+    // 특정 경로(/metrics)에서는 인터셉터 적용하지 않음
+    if (request.url.startsWith("/metrics")) {
+      return next.handle(); // 원본 데이터 그대로 반환
+    }
     return next.handle().pipe(map((data) => ({ data })));
   }
 }
