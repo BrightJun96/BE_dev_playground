@@ -99,16 +99,16 @@ jobs:
           cd /home/ec2-user/devlounge-app
           
           # 기존 컨테이너 중지 및 삭제
-          sudo docker compose down
+          sudo docker-compose down
           
           # Docker 시스템 정리 (디스크 공간 확보)
           sudo docker system prune -a -f
           sudo docker volume prune -f
           
           # 최신 Docker 이미지 다운로드
-          sudo docker compose pull
+          sudo docker-compose pull
           
           # 새로운 컨테이너 실행
-          sudo docker compose up -d --remove-orphans
+          sudo docker-compose up -d --remove-orphans
           
           EOF
