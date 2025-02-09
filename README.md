@@ -13,6 +13,10 @@ https://thedevlounge.com API 서버입니다.
 
 ## Monitoring
 - Prometheus + Grafana
+- 모니터링 요소
+    - 각 API 호출 횟수/ ROUTE / 요청-응답 시간
+    - CPU 사용률
+    - RAM 사용률
 
 ## Tech
 ### Framework
