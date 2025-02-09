@@ -1,16 +1,14 @@
-version: '3.8'
+#version: '3.8'
 
 services:
   #SERVER
   app:
+    container_name: devlounge
     build:
       context: .
       dockerfile: Dockerfile
       target: development
     command: pnpm run start:dev
-    depends_on:
-      postgres:
-        condition: service_healthy
     ports:
       - "3000:3000"
     env_file:
@@ -18,21 +16,47 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+#    networks:
+#      - monitoring  # 같은 네트워크 추가
+#
+#  prometheus:
+#    image: prom/prometheus
+#    container_name: prometheus
+#    volumes:
+#      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#    ports:
+#      - "9090:9090"
+#    networks:
+#      - monitoring  # 같은 네트워크 추가
+#
+#  # Grafana 추가
+#  grafana:
+#    image: grafana/grafana
+#    container_name: grafana
+#    ports:
+#      - "3001:3000"  # Grafana 기본 포트는 3000, 충돌 방지를 위해 3001로 변경 가능
+#    volumes:
+#      - grafana-data:/var/lib/grafana  # 데이터 유지
+#    environment:
+#      - GF_SECURITY_ADMIN_PASSWORD=admin  # 기본 로그인 패스워드 (admin/admin)
+#      - GF_SECURITY_ADMIN_USER=admin
+#    depends_on:
+#      - prometheus  # Prometheus가 먼저 실행된 후 Grafana 실행
+#    networks:
+#      - monitoring  # 같은 네트워크 설정
+#
+#  node_exporter:
+#    image: prom/node-exporter
+#    container_name: node_exporter
+#    restart: unless-stopped
+#    ports:
+#      - "9100:9100"
+#    networks:
+#      - monitoring
 
-  #DB
-  postgres:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-    ports:
-      - "6000:5432"
-    volumes:
-        - ./postgres:/var/lib/postgresql/data
-    healthcheck:
-      test: [ "CMD-SHELL","pg_isready -U postgres" ]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 5s
+#networks:
+#  monitoring:
+#    driver: bridge
+#
+#volumes:
+#  grafana-data:
