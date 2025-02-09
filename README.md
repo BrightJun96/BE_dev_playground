@@ -36,7 +36,7 @@ https://thedevlounge.com API 서버입니다.
 
 ## Run project in local environment
 
-> .env 파일 구성해야함.
+> 실행해보고 싶다면 .env 파일 구성해야함.
 
 ```bash
 
