@@ -14,6 +14,25 @@ https://thedevlounge.com API 서버입니다.
 ## Monitoring
 - Prometheus + Grafana
 
+## Tech
+### Framework
+- Nest.js
+
+### Language
+- Typescript
+
+### ORM
+- TypeOrm
+- Mongoose
+  
+### DB
+- PostgreSQL on AWS RDB
+- MongoDB on mongo cluster
+
+### Redis
+- Cacheing
+
+
 
 ## Run project in local environment
 
