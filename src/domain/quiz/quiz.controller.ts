@@ -163,8 +163,8 @@ export class QuizController {
   create(
     @Body() createQuizDto: CreateQuizRequestDto,
     @QueryRunner() qr: QR,
-  ): Promise<GetQuizSharedDto> {
-    return this.createQuizService.create(createQuizDto, qr);
+  ) {
+    return this.createQuizService.create(createQuizDto);
   }
 
   /**

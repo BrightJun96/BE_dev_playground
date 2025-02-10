@@ -3,34 +3,33 @@ import {
   Injectable,
 } from "@nestjs/common";
 import { QueryRunner } from "typeorm";
-import { Relations } from "../../../shared/const/relation.const";
+import { TransactionManagerPort } from "../../../shared/transaction/port/transaction-manager.port";
+import { QuizDomain } from "../domain/quiz.domain";
 import { CreateMultipleChoiceRequestDto } from "../dto/request/create-multiple-choice.request.dto";
 import { CreateQuizMetaDataDtoRequest } from "../dto/request/create-quiz-meta-data.dto.request";
 import { CreateQuizRequestDto } from "../dto/request/create-quiz.request.dto";
-import { GetQuizSharedDto } from "../dto/shared/get-quiz.shared.dto";
 import { MultipleChoice } from "../entities/multiple-choice.entity";
 import { QuizMetaData } from "../entities/quiz-meta-data.entity";
 import { Quiz } from "../entities/quiz.entity";
+import { CreateQuizRepositoryPort } from "../port/create-quiz.repository.port";
 
 @Injectable()
 export class CreateQuizService {
-  constructor() {}
+  constructor(
+    private readonly createQuizRepositoryPort: CreateQuizRepositoryPort,
+    private readonly transactionManager: TransactionManagerPort, // 트랜잭션 관리 객체
+  ) {}
 
   /**
    * 퀴즈 생성
    */
   async create(
     createQuizDto: CreateQuizRequestDto,
-    qr: QueryRunner,
-  ): Promise<GetQuizSharedDto> {
-    const duplicationUrlQuiz = await qr.manager.findOne(
-      Quiz,
-      {
-        where: {
-          detailUrl: createQuizDto.detailUrl,
-        },
-      },
-    );
+  ): Promise<QuizDomain> {
+    const duplicationUrlQuiz =
+      await this.createQuizRepositoryPort.findOneByUrl(
+        createQuizDto.detailUrl,
+      );
 
     if (duplicationUrlQuiz) {
       throw new BadRequestException(
@@ -38,36 +37,29 @@ export class CreateQuizService {
       );
     }
 
-    const quizMetaData = await this.createQuizMetaData(
-      createQuizDto.quizMetaData,
-      qr,
-    );
+    return await this.transactionManager.runInTransaction<QuizDomain>(
+      async () => {
+        // 메타데이터 생성
+        await this.createQuizRepositoryPort.createQuizMetaData(
+          createQuizDto.quizMetaData,
+        );
 
-    const metaDataId = quizMetaData.identifiers[0].id;
+        // 퀴즈 생성
+        const quiz =
+          await this.createQuizRepositoryPort.createQuiz(
+            createQuizDto,
+          );
 
-    const quiz = await this.createQuiz(
-      createQuizDto,
-      metaDataId,
-      qr,
-    );
+        // 객관식 답안 생성
+        await this.createQuizRepositoryPort.createMultipleChoices(
+          createQuizDto.multipleChoices,
+        );
 
-    const quizId = quiz.identifiers[0].id;
-
-    await this.createMultipleChoices(
-      createQuizDto.multipleChoices,
-      quizId,
-      qr,
-    );
-
-    return qr.manager.findOne(Quiz, {
-      relations: [
-        Relations.QUIZ.META,
-        Relations.QUIZ.MULTIPLE,
-      ],
-      where: {
-        id: quizId,
+        return await this.createQuizRepositoryPort.findOneById(
+          quiz.id,
+        );
       },
-    });
+    );
   }
 
   /**
