@@ -2,9 +2,9 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { SharedService } from "../../../shared/shared.service";
+import { Quiz } from "../adapter/output/typeorm/entities/quiz.entity";
 import { GetQuizListRequestDto } from "../dto/request/get-quiz-list.request.dto";
 import { GetQuizListResponseDto } from "../dto/response/get-quiz-list.response.dto";
-import { Quiz } from "../entities/quiz.entity";
 
 @Injectable()
 export class QuizListUsecase {

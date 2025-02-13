@@ -5,7 +5,7 @@ import {
   OneToMany,
   OneToOne,
 } from "typeorm";
-import { SharedEntity } from "../../../shared/entity/shared.entity";
+import { SharedEntity } from "../../../../../../shared/entity/shared.entity";
 import { MultipleChoice } from "./multiple-choice.entity";
 import { QuizMetaData } from "./quiz-meta-data.entity";
 

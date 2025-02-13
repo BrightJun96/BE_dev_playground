@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { QueryRunner } from "typeorm";
 import { Relations } from "../../../shared/const/relation.const";
+import { MultipleChoice } from "../adapter/output/typeorm/entities/multiple-choice.entity";
+import { QuizMetaData } from "../adapter/output/typeorm/entities/quiz-meta-data.entity";
+import { Quiz } from "../adapter/output/typeorm/entities/quiz.entity";
 import { UpdateMultipleChoiceRequestDto } from "../dto/request/update-multiple-choice.request.dto";
 import { UpdateQuizMetaDataRequestDto } from "../dto/request/update-quiz-meta-data.request.dto";
 import { UpdateQuizRequestDto } from "../dto/request/update-quiz.request.dto";
 import { GetQuizSharedDto } from "../dto/shared/get-quiz.shared.dto";
-import { MultipleChoice } from "../entities/multiple-choice.entity";
-import { QuizMetaData } from "../entities/quiz-meta-data.entity";
-import { Quiz } from "../entities/quiz.entity";
 
 @Injectable()
 export class UpdateQuizUsecase {

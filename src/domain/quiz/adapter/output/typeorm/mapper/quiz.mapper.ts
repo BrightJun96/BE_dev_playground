@@ -2,9 +2,9 @@
  * Entity를 Domain 객체로 변환해주는 역할을 해야함.
  * 서비스단에서 요구하는 것은 Domain객체임
  */
-import { MultipleChoiceDomain } from "../domain/multiple-choice.domain";
-import { QuizMetaDataDomain } from "../domain/quiz-meta-data.domain";
-import { QuizDomain } from "../domain/quiz.domain";
+import { MultipleChoiceDomain } from "../../../../domain/multiple-choice.domain";
+import { QuizMetaDataDomain } from "../../../../domain/quiz-meta-data.domain";
+import { QuizDomain } from "../../../../domain/quiz.domain";
 import { MultipleChoice } from "../entities/multiple-choice.entity";
 import { QuizMetaData } from "../entities/quiz-meta-data.entity";
 import { Quiz } from "../entities/quiz.entity";

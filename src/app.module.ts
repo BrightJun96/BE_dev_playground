@@ -37,9 +37,9 @@ import { InterviewMetadata } from "./domain/interview/entities/interview-metadat
 import { Interview } from "./domain/interview/entities/interview.entity";
 import { InterviewModule } from "./domain/interview/interview.module";
 
-import { MultipleChoice } from "./domain/quiz/entities/multiple-choice.entity";
-import { QuizMetaData } from "./domain/quiz/entities/quiz-meta-data.entity";
-import { Quiz } from "./domain/quiz/entities/quiz.entity";
+import { MultipleChoice } from "./domain/quiz/adapter/output/typeorm/entities/multiple-choice.entity";
+import { QuizMetaData } from "./domain/quiz/adapter/output/typeorm/entities/quiz-meta-data.entity";
+import { Quiz } from "./domain/quiz/adapter/output/typeorm/entities/quiz.entity";
 import { QuizModule } from "./domain/quiz/quiz.module";
 import { RoadmapModule } from "./domain/roadmap/roadmap.module";
 import { User } from "./domain/user/entities/user.entity";

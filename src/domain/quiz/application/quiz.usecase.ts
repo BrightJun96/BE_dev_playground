@@ -5,12 +5,12 @@ import {
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Relations } from "../../../shared/const/relation.const";
+import { Quiz } from "../adapter/output/typeorm/entities/quiz.entity";
 import { CheckAnswerRequestDto } from "../dto/request/check-answer.request.dto";
 import { CheckAnswerResponseDto } from "../dto/response/check-answer.response.dto";
 import { DeleteQuizResponseDto } from "../dto/response/delete-quiz.response.dto";
 import { QuizDetailURLResponseDto } from "../dto/response/get-quiz-url.response.dto";
 import { GetQuizSharedDto } from "../dto/shared/get-quiz.shared.dto";
-import { Quiz } from "../entities/quiz.entity";
 
 @Injectable()
 export class QuizUsecase {
