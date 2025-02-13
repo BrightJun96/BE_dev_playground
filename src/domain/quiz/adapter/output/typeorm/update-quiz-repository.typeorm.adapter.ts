@@ -1,3 +1,4 @@
+import { BadRequestException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Relations } from "../../../../../shared/const/relation.const";
@@ -36,6 +37,12 @@ export class UpdateQuizRepositoryTypeormAdapter
         Relations.QUIZ.MULTIPLE,
       ],
     });
+
+    if (!quizEntity) {
+      throw new BadRequestException(
+        "해당 퀴즈는 존재하지 않습니다.",
+      );
+    }
 
     const quizDomain = toQuizDomain(quizEntity);
     const quizMultipleDomain =

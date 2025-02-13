@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-} from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { TransactionManagerPort } from "../../../shared/transaction/port/transaction-manager.port";
 import { MultipleChoiceDomain } from "../domain/multiple-choice.domain";
 import { QuizMetaDataDomain } from "../domain/quiz-meta-data.domain";
@@ -25,16 +21,9 @@ export class CreateQuizUsecase {
   async execute(
     createQuizDto: CreateQuizRequestDto,
   ): Promise<QuizDomain> {
-    const duplicationUrlQuiz =
-      await this.createQuizRepositoryPort.findOneByUrl(
-        createQuizDto.detailUrl,
-      );
-
-    if (duplicationUrlQuiz) {
-      throw new BadRequestException(
-        "detailUrl은 중복되면 안됩니다.",
-      );
-    }
+    await this.createQuizRepositoryPort.findOneByUrl(
+      createQuizDto.detailUrl,
+    );
 
     return await this.transactionManagerPort.runInTransaction<QuizDomain>(
       async () => {

@@ -1,3 +1,4 @@
+import { BadRequestException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { QuizDomain } from "../../../domain/quiz.domain";
@@ -22,14 +23,16 @@ export class CreateQuizRepositoryTypeormAdapter
     private readonly multipleChoiceRepository: Repository<MultipleChoice>,
   ) {}
 
-  async findOneByUrl(
-    url: string,
-  ): Promise<QuizDomain | null> {
+  async findOneByUrl(url: string): Promise<QuizDomain> {
     const quizEntity = await this.quizRepository.findOne({
       where: { detailUrl: url },
     });
 
-    if (!quizEntity) return null;
+    if (quizEntity) {
+      throw new BadRequestException(
+        "detailUrl은 중복되면 안됩니다.",
+      );
+    }
 
     const quizDomain = toQuizDomain(quizEntity);
 

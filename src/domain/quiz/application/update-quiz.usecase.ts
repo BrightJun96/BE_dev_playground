@@ -23,26 +23,30 @@ export class UpdateQuizUsecase {
     const quiz =
       await this.updateQuizRepositoryPort.findOneById(id);
 
-    if (updateQuizDto.quizMetaData) {
-      await this.updateQuizRepositoryPort.updateMetaData(
-        quiz.quizMetaData.id,
-        updateQuizDto.quizMetaData,
-      );
-    }
+    return await this.transactionManagerPort.runInTransaction<QuizDomain>(
+      async () => {
+        if (updateQuizDto.quizMetaData) {
+          await this.updateQuizRepositoryPort.updateMetaData(
+            quiz.quizMetaData.id,
+            updateQuizDto.quizMetaData,
+          );
+        }
 
-    if (updateQuizDto.multipleChoices) {
-      await this.updateQuizRepositoryPort.updateMultipleChoices(
-        updateQuizDto.multipleChoices,
-      );
-    }
+        if (updateQuizDto.multipleChoices) {
+          await this.updateQuizRepositoryPort.updateMultipleChoices(
+            updateQuizDto.multipleChoices,
+          );
+        }
 
-    await this.updateQuizRepositoryPort.updateQuiz(
-      id,
-      updateQuizDto,
-    );
+        await this.updateQuizRepositoryPort.updateQuiz(
+          id,
+          updateQuizDto,
+        );
 
-    return await this.updateQuizRepositoryPort.findOneById(
-      id,
+        return await this.updateQuizRepositoryPort.findOneById(
+          id,
+        );
+      },
     );
   }
 }
