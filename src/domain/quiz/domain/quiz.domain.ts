@@ -1,4 +1,6 @@
 import { Field } from "../../../shared/enum/field.enum";
+import { MultipleChoiceDomain } from "./multiple-choice.domain";
+import { QuizMetaDataDomain } from "./quiz-meta-data.domain";
 
 export class QuizDomain {
   id: number;
@@ -8,8 +10,8 @@ export class QuizDomain {
   field: Field;
   explanation: string;
   answer: number;
-  quizMetaData: object;
-  multipleChoices: object[];
+  quizMetaData: QuizMetaDataDomain;
+  multipleChoices: MultipleChoiceDomain[];
   createdAt: Date;
   updatedAt: Date;
   version: number;
@@ -35,8 +37,8 @@ export class QuizDomain {
     field: Field;
     explanation: string;
     answer: number;
-    quizMetaData: object;
-    multipleChoices: object[];
+    quizMetaData: QuizMetaDataDomain;
+    multipleChoices: MultipleChoiceDomain[];
     createdAt: Date;
     updatedAt: Date;
     version: number;
