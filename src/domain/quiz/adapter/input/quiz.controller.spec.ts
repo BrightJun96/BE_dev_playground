@@ -1,19 +1,19 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { QuizUsecase } from "../../application/quiz.usecase";
-import { QuizRestApiController } from "./quiz-rest-api.controller";
+import { QuizRestApiAdapter } from "./quiz-rest-api.adapter";
 
 describe("QuizController", () => {
-  let controller: QuizRestApiController;
+  let controller: QuizRestApiAdapter;
 
   beforeEach(async () => {
     const module: TestingModule =
       await Test.createTestingModule({
-        controllers: [QuizRestApiController],
+        controllers: [QuizRestApiAdapter],
         providers: [QuizUsecase],
       }).compile();
 
-    controller = module.get<QuizRestApiController>(
-      QuizRestApiController,
+    controller = module.get<QuizRestApiAdapter>(
+      QuizRestApiAdapter,
     );
   });
 

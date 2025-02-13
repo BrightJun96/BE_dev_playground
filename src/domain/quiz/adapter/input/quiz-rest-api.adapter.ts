@@ -40,9 +40,7 @@ import { QuizUseCasePort } from "../../port/input/quiz-use-case.port";
 
 @Controller("quiz")
 @ApiTags("퀴즈")
-export class QuizRestApiController
-  implements QuizUseCasePort
-{
+export class QuizRestApiAdapter implements QuizUseCasePort {
   constructor(
     private readonly quizService: QuizUsecase,
     private readonly createQuizService: CreateQuizUsecase,

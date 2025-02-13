@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SharedModule } from "../../shared/shared.module";
 import { TransactionModule } from "../../shared/transaction/transaction.module";
-import { QuizRestApiController } from "./adapter/input/quiz-rest-api.controller";
+import { QuizRestApiAdapter } from "./adapter/input/quiz-rest-api.adapter";
 import { CreateQuizRepositoryTypeormAdapter } from "./adapter/output/create-quiz-repository.typeorm.adapter";
 import { CreateQuizUsecase } from "./application/create-quiz.usecase";
 import { QuizListUsecase } from "./application/quiz-list.usecase";
@@ -22,7 +22,7 @@ import { Quiz } from "./entities/quiz.entity";
     ]),
     TransactionModule,
   ],
-  controllers: [QuizRestApiController],
+  controllers: [QuizRestApiAdapter],
   providers: [
     QuizUsecase,
     QuizListUsecase,
