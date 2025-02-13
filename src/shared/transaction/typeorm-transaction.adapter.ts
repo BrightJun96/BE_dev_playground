@@ -4,7 +4,13 @@ import { TransactionManagerPort } from "./port/transaction-manager.port";
 export class TypeormTransactionAdapter
   implements TransactionManagerPort
 {
-  constructor(private readonly dataSource: DataSource) {}
+  constructor(private readonly dataSource: DataSource) {
+    if (!this.dataSource) {
+      throw new Error(
+        "DataSource is not provided to TypeormTransactionAdapter!",
+      );
+    }
+  }
 
   async runInTransaction<T>(
     fn: () => Promise<T>,

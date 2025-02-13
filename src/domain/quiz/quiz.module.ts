@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SharedModule } from "../../shared/shared.module";
-import { TypeormTransactionAdapter } from "../../shared/transaction/typeorm-transaction.adapter";
+import { TransactionModule } from "../../shared/transaction/transaction.module";
 import { CreateQuizRepositoryTypeormAdapter } from "./adapter/create-quiz-repository.typeorm.adapter";
 import { MultipleChoice } from "./entities/multiple-choice.entity";
 import { QuizMetaData } from "./entities/quiz-meta-data.entity";
@@ -20,6 +20,7 @@ import { UpdateQuizService } from "./service/update-quiz.service";
       QuizMetaData,
       MultipleChoice,
     ]),
+    TransactionModule,
   ],
   controllers: [QuizController],
   providers: [
@@ -30,10 +31,10 @@ import { UpdateQuizService } from "./service/update-quiz.service";
       provide: "CreateQuizRepositoryPort",
       useClass: CreateQuizRepositoryTypeormAdapter,
     },
-    {
-      provide: "TransactionManagerPort",
-      useClass: TypeormTransactionAdapter,
-    },
+    // {
+    //   provide: "TransactionManagerPort",
+    //   useClass: TypeormTransactionAdapter,
+    // },
 
     UpdateQuizService,
   ],
