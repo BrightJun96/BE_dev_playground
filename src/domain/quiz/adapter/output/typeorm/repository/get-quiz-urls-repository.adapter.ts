@@ -1,8 +1,8 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { QuizDetailURLResponseDto } from "../../../dto/response/get-quiz-url.response.dto";
-import { GetQuizUrlsRepositoryPort } from "../../../port/output/get-quiz-urls.repository.port";
-import { Quiz } from "./entities/quiz.entity";
+import { QuizDetailURLResponseDto } from "../../../../dto/response/get-quiz-url.response.dto";
+import { GetQuizUrlsRepositoryPort } from "../../../../port/output/get-quiz-urls.repository.port";
+import { Quiz } from "../entities/quiz.entity";
 
 export class GetQuizUrlsRepositoryAdapter
   implements GetQuizUrlsRepositoryPort

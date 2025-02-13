@@ -1,20 +1,20 @@
 import { BadRequestException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Relations } from "../../../../../shared/const/relation.const";
-import { QuizDomain } from "../../../domain/quiz.domain";
-import { UpdateMultipleChoiceRequestDto } from "../../../dto/request/update-multiple-choice.request.dto";
-import { UpdateQuizMetaDataRequestDto } from "../../../dto/request/update-quiz-meta-data.request.dto";
-import { UpdateQuizRequestDto } from "../../../dto/request/update-quiz.request.dto";
-import { UpdateQuizRepositoryPort } from "../../../port/output/update-quiz.repository.port";
-import { MultipleChoice } from "./entities/multiple-choice.entity";
-import { QuizMetaData } from "./entities/quiz-meta-data.entity";
-import { Quiz } from "./entities/quiz.entity";
+import { Relations } from "../../../../../../shared/const/relation.const";
+import { QuizDomain } from "../../../../domain/quiz.domain";
+import { UpdateMultipleChoiceRequestDto } from "../../../../dto/request/update-multiple-choice.request.dto";
+import { UpdateQuizMetaDataRequestDto } from "../../../../dto/request/update-quiz-meta-data.request.dto";
+import { UpdateQuizRequestDto } from "../../../../dto/request/update-quiz.request.dto";
+import { UpdateQuizRepositoryPort } from "../../../../port/output/update-quiz.repository.port";
+import { MultipleChoice } from "../entities/multiple-choice.entity";
+import { QuizMetaData } from "../entities/quiz-meta-data.entity";
+import { Quiz } from "../entities/quiz.entity";
 import {
   toMultipleChoiceDomain,
   toQuizDomain,
   toQuizMetaDataDomain,
-} from "./mapper/quiz.mapper";
+} from "../mapper/quiz.mapper";
 
 export class UpdateQuizRepositoryTypeormAdapter
   implements UpdateQuizRepositoryPort

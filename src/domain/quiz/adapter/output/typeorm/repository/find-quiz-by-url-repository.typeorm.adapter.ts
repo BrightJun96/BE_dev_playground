@@ -1,9 +1,9 @@
 import { NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { GetQuizSharedDto } from "../../../dto/shared/get-quiz.shared.dto";
-import { FindQuizByUrlRepositoryPort } from "../../../port/output/find-quiz-by-url.repository.port";
-import { Quiz } from "./entities/quiz.entity";
+import { GetQuizSharedDto } from "../../../../dto/shared/get-quiz.shared.dto";
+import { FindQuizByUrlRepositoryPort } from "../../../../port/output/find-quiz-by-url.repository.port";
+import { Quiz } from "../entities/quiz.entity";
 
 export class FindQuizByUrlRepositoryTypeormAdapter
   implements FindQuizByUrlRepositoryPort

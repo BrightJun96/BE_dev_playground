@@ -1,12 +1,12 @@
 import { BadRequestException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { QuizDomain } from "../../../domain/quiz.domain";
-import { CreateQuizRepositoryPort } from "../../../port/output/create-quiz.repository.port";
-import { MultipleChoice } from "./entities/multiple-choice.entity";
-import { QuizMetaData } from "./entities/quiz-meta-data.entity";
-import { Quiz } from "./entities/quiz.entity";
-import { toMultipleChoiceDomain } from "./mapper/quiz.mapper";
+import { QuizDomain } from "../../../../domain/quiz.domain";
+import { CreateQuizRepositoryPort } from "../../../../port/output/create-quiz.repository.port";
+import { MultipleChoice } from "../entities/multiple-choice.entity";
+import { QuizMetaData } from "../entities/quiz-meta-data.entity";
+import { Quiz } from "../entities/quiz.entity";
+import { toMultipleChoiceDomain } from "../mapper/quiz.mapper";
 
 export class CreateQuizRepositoryTypeormAdapter
   implements CreateQuizRepositoryPort

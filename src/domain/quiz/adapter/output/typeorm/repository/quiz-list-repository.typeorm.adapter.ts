@@ -1,11 +1,11 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { SharedService } from "../../../../../shared/shared.service";
-import { QuizDomain } from "../../../domain/quiz.domain";
-import { GetQuizListRequestDto } from "../../../dto/request/get-quiz-list.request.dto";
-import { QuizListRepositoryPort } from "../../../port/output/quiz-list.repository.port";
-import { Quiz } from "./entities/quiz.entity";
-import { toQuizDomain } from "./mapper/quiz.mapper";
+import { SharedService } from "../../../../../../shared/shared.service";
+import { QuizDomain } from "../../../../domain/quiz.domain";
+import { GetQuizListRequestDto } from "../../../../dto/request/get-quiz-list.request.dto";
+import { QuizListRepositoryPort } from "../../../../port/output/quiz-list.repository.port";
+import { Quiz } from "../entities/quiz.entity";
+import { toQuizDomain } from "../mapper/quiz.mapper";
 
 export class QuizListRepositoryTypeormAdapter
   implements QuizListRepositoryPort

@@ -1,11 +1,11 @@
 import { NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Relations } from "../../../../../shared/const/relation.const";
-import { DeleteQuizResponseDto } from "../../../dto/response/delete-quiz.response.dto";
-import { GetQuizSharedDto } from "../../../dto/shared/get-quiz.shared.dto";
-import { DeleteQuizRepositoryPort } from "../../../port/output/delete-quiz.repository.port";
-import { Quiz } from "./entities/quiz.entity";
+import { Relations } from "../../../../../../shared/const/relation.const";
+import { DeleteQuizResponseDto } from "../../../../dto/response/delete-quiz.response.dto";
+import { GetQuizSharedDto } from "../../../../dto/shared/get-quiz.shared.dto";
+import { DeleteQuizRepositoryPort } from "../../../../port/output/delete-quiz.repository.port";
+import { Quiz } from "../entities/quiz.entity";
 
 export class DeleteQuizRepositoryTypeormAdapter
   implements DeleteQuizRepositoryPort

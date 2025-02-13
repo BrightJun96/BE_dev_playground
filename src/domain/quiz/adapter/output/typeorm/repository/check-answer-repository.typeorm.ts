@@ -1,11 +1,11 @@
 import { NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Relations } from "../../../../../shared/const/relation.const";
-import { CheckAnswerRequestDto } from "../../../dto/request/check-answer.request.dto";
-import { CheckAnswerResponseDto } from "../../../dto/response/check-answer.response.dto";
-import { CheckAnswerRepositoryPort } from "../../../port/output/check-answer.repository.port";
-import { Quiz } from "./entities/quiz.entity";
+import { Relations } from "../../../../../../shared/const/relation.const";
+import { CheckAnswerRequestDto } from "../../../../dto/request/check-answer.request.dto";
+import { CheckAnswerResponseDto } from "../../../../dto/response/check-answer.response.dto";
+import { CheckAnswerRepositoryPort } from "../../../../port/output/check-answer.repository.port";
+import { Quiz } from "../entities/quiz.entity";
 
 export class CheckAnswerRepositoryTypeorm
   implements CheckAnswerRepositoryPort
