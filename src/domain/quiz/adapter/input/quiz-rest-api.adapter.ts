@@ -17,8 +17,6 @@ import {
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
-import { QueryRunner as QR } from "typeorm/query-runner/QueryRunner";
-import { QueryRunner } from "../../../../shared/decorator/query-runner.decorator";
 import { TransactionInterceptor } from "../../../../shared/interceptor/transaction.interceptor";
 import { Public } from "../../../auth/decorator/public.decorator";
 import { RBAC } from "../../../auth/decorator/rbac.decorator";
@@ -182,13 +180,8 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
   update(
     @Param("id", ParseIntPipe) id: number,
     @Body() updateQuizDto: UpdateQuizRequestDto,
-    @QueryRunner() qr: QR,
   ): Promise<GetQuizSharedDto> {
-    return this.updateQuizService.update(
-      id,
-      updateQuizDto,
-      qr,
-    );
+    return this.updateQuizService.update(id, updateQuizDto);
   }
 
   /**
