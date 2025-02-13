@@ -29,7 +29,7 @@ export class QuizMetaData {
   })
   metaImageUrl: string;
 
-  @OneToOne(() => Quiz, (quiz) => quiz.id, {
+  @OneToOne(() => Quiz, (quiz) => quiz.quizMetaData, {
     onDelete: "CASCADE",
   })
   quiz: Quiz;

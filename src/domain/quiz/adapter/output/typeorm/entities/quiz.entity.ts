@@ -25,9 +25,10 @@ export class Quiz extends SharedEntity {
 
   @OneToOne(
     () => QuizMetaData,
-    (quizMetaData) => quizMetaData.id,
+    (quizMetaData) => quizMetaData.quiz,
     {
       cascade: true,
+      onDelete: "CASCADE",
     },
   )
   @JoinColumn()
