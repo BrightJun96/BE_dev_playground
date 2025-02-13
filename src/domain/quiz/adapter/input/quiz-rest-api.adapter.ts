@@ -21,9 +21,13 @@ import { TransactionInterceptor } from "../../../../shared/interceptor/transacti
 import { Public } from "../../../auth/decorator/public.decorator";
 import { RBAC } from "../../../auth/decorator/rbac.decorator";
 import { Role } from "../../../user/entities/user.entity";
+import { CheckAnswerUsecase } from "../../application/check-answer.usecase";
 import { CreateQuizUsecase } from "../../application/create-quiz.usecase";
+import { DeleteQuizUsecase } from "../../application/delete-quiz.usecase";
+import { FindQuizByIdUsecase } from "../../application/find-quiz-by-id.usecase";
+import { FindQuizByUrlUsecase } from "../../application/find-quiz-by-url.usecase";
+import { GetQuizUrlsUsecase } from "../../application/get-quiz-urls.usecase";
 import { QuizListUsecase } from "../../application/quiz-list.usecase";
-import { QuizUsecase } from "../../application/quiz.usecase";
 import { UpdateQuizUsecase } from "../../application/update-quiz.usecase";
 import { CheckAnswerRequestDto } from "../../dto/request/check-answer.request.dto";
 import { CreateQuizRequestDto } from "../../dto/request/create-quiz.request.dto";
@@ -40,10 +44,14 @@ import { QuizUseCasePort } from "../../port/input/quiz-use-case.port";
 @ApiTags("퀴즈")
 export class QuizRestApiAdapter implements QuizUseCasePort {
   constructor(
-    private readonly quizService: QuizUsecase,
-    private readonly createQuizService: CreateQuizUsecase,
-    private readonly updateQuizService: UpdateQuizUsecase,
-    private readonly quizListService: QuizListUsecase,
+    private readonly createQuizUsecase: CreateQuizUsecase,
+    private readonly updateQuizUsecase: UpdateQuizUsecase,
+    private readonly quizListUsecase: QuizListUsecase,
+    private readonly findQuizByIdUsecase: FindQuizByIdUsecase,
+    private readonly findQuizByUrlUsecase: FindQuizByUrlUsecase,
+    private readonly getQuizUrlsUsecase: GetQuizUrlsUsecase,
+    private readonly deleteQuizUsecase: DeleteQuizUsecase,
+    private readonly checkAnswerUsecase: CheckAnswerUsecase,
   ) {}
 
   /**
@@ -74,8 +82,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
   async findOneByUrl(
     @Param("detailUrl") url: string,
   ): Promise<GetQuizSharedDto> {
-    console.log("detailUrl Cache");
-    return await this.quizService.findOneByUrl(url);
+    return await this.findQuizByUrlUsecase.execute(url);
   }
 
   /**
@@ -95,7 +102,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
     QuizDetailURLResponseDto[]
   > {
     console.log("퀴즈 DETAIL URL 목록");
-    return await this.quizService.findDetailUrls();
+    return await this.getQuizUrlsUsecase.execute();
   }
 
   /**
@@ -113,7 +120,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
   async checkAnswer(
     @Body() checkAnswerRequestDto: CheckAnswerRequestDto,
   ): Promise<CheckAnswerResponseDto> {
-    return await this.quizService.checkAnswer(
+    return await this.checkAnswerUsecase.execute(
       checkAnswerRequestDto,
     );
   }
@@ -140,7 +147,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
   async findAll(
     @Query() getQuizListDto: GetQuizListRequestDto,
   ): Promise<GetQuizListResponseDto> {
-    return await this.quizListService.findAll(
+    return await this.quizListUsecase.findAll(
       getQuizListDto,
     );
   }
@@ -160,7 +167,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
     type: GetQuizSharedDto,
   })
   create(@Body() createQuizDto: CreateQuizRequestDto) {
-    return this.createQuizService.execute(createQuizDto);
+    return this.createQuizUsecase.execute(createQuizDto);
   }
 
   /**
@@ -181,7 +188,10 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
     @Param("id", ParseIntPipe) id: number,
     @Body() updateQuizDto: UpdateQuizRequestDto,
   ): Promise<GetQuizSharedDto> {
-    return this.updateQuizService.update(id, updateQuizDto);
+    return this.updateQuizUsecase.execute(
+      id,
+      updateQuizDto,
+    );
   }
 
   /**
@@ -200,7 +210,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
   async findOneById(
     @Param("id", ParseIntPipe) id: number,
   ): Promise<GetQuizSharedDto> {
-    return await this.quizService.findOneById(id);
+    return await this.findQuizByIdUsecase.execute(id);
   }
   /**
    * 퀴즈 삭제
@@ -218,6 +228,6 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
   async remove(
     @Param("id", ParseIntPipe) id: number,
   ): Promise<DeleteQuizResponseDto> {
-    return await this.quizService.remove(id);
+    return await this.deleteQuizUsecase.execute(id);
   }
 }

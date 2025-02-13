@@ -16,7 +16,7 @@ export class UpdateQuizUsecase {
   /**
    * 퀴즈 수정
    */
-  async update(
+  async execute(
     id: number,
     updateQuizDto: UpdateQuizRequestDto,
   ): Promise<QuizDomain> {
