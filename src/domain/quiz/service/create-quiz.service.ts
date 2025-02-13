@@ -4,6 +4,8 @@ import {
   Injectable,
 } from "@nestjs/common";
 import { TransactionManagerPort } from "../../../shared/transaction/port/transaction-manager.port";
+import { MultipleChoiceDomain } from "../domain/multiple-choice.domain";
+import { QuizMetaDataDomain } from "../domain/quiz-meta-data.domain";
 import { QuizDomain } from "../domain/quiz.domain";
 import { CreateQuizRequestDto } from "../dto/request/create-quiz.request.dto";
 import { CreateQuizRepositoryPort } from "../port/create-quiz.repository.port";
@@ -14,13 +16,13 @@ export class CreateQuizService {
     @Inject("CreateQuizRepositoryPort")
     private readonly createQuizRepositoryPort: CreateQuizRepositoryPort,
     @Inject("TransactionManagerPort")
-    private readonly transactionManager: TransactionManagerPort, // 트랜잭션 관리 객체
+    private readonly transactionManagerPort: TransactionManagerPort,
   ) {}
 
   /**
    * 퀴즈 생성
    */
-  async create(
+  async execute(
     createQuizDto: CreateQuizRequestDto,
   ): Promise<QuizDomain> {
     const duplicationUrlQuiz =
@@ -34,29 +36,30 @@ export class CreateQuizService {
       );
     }
 
-    return await this.transactionManager.runInTransaction<QuizDomain>(
+    return await this.transactionManagerPort.runInTransaction<QuizDomain>(
       async () => {
         // 메타데이터 생성
-        const metaData =
-          await this.createQuizRepositoryPort.createQuizMetaData(
-            createQuizDto.quizMetaData,
-          );
-
-        // 퀴즈 생성
-        const quiz =
-          await this.createQuizRepositoryPort.createQuiz(
-            createQuizDto,
-            metaData.id,
-          );
-
-        // 객관식 답안 생성
-        await this.createQuizRepositoryPort.createMultipleChoices(
-          createQuizDto.multipleChoices,
-          quiz.id,
+        const quizMetaData = new QuizMetaDataDomain(
+          createQuizDto.quizMetaData,
         );
 
-        return await this.createQuizRepositoryPort.findOneById(
-          quiz.id,
+        // 객관식 답안 생성
+        const multipleChoices =
+          createQuizDto.multipleChoices.map(
+            (choiceDto) =>
+              new MultipleChoiceDomain(choiceDto),
+          );
+
+        // QuizDomain 내부에서 생성 로직 처리
+        const quizDomain = QuizDomain.create(
+          createQuizDto,
+          quizMetaData,
+          multipleChoices,
+        );
+
+        // 퀴즈 저장
+        return await this.createQuizRepositoryPort.save(
+          quizDomain,
         );
       },
     );

@@ -160,11 +160,8 @@ export class QuizController {
     status: 200,
     type: GetQuizSharedDto,
   })
-  create(
-    @Body() createQuizDto: CreateQuizRequestDto,
-    @QueryRunner() qr: QR,
-  ) {
-    return this.createQuizService.create(createQuizDto);
+  create(@Body() createQuizDto: CreateQuizRequestDto) {
+    return this.createQuizService.execute(createQuizDto);
   }
 
   /**

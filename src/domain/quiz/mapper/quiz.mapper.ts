@@ -14,7 +14,6 @@ import { Quiz } from "../entities/quiz.entity";
  */
 export function toQuizDomain(entity: Quiz): QuizDomain {
   return new QuizDomain({
-    id: entity.id,
     title: entity.title,
     content: entity.content,
     detailUrl: entity.detailUrl,
@@ -22,12 +21,6 @@ export function toQuizDomain(entity: Quiz): QuizDomain {
     explanation: entity.explanation,
     answer: entity.answer,
     quizMetaData: toQuizMetaDataDomain(entity.quizMetaData),
-    // multipleChoices: entity.multipleChoices
-    //   ? entity.multipleChoices.map(toMultipleChoiceDomain)
-    //   : null,
-    createdAt: entity.createdAt,
-    updatedAt: entity.updatedAt,
-    version: entity.version,
   });
 }
 
@@ -37,9 +30,7 @@ export function toQuizDomain(entity: Quiz): QuizDomain {
 export function toQuizMetaDataDomain(
   entity: QuizMetaData,
 ): QuizMetaDataDomain {
-  console.log("entity :", entity);
   return new QuizMetaDataDomain({
-    id: entity.id,
     seoMetaTitle: entity.seoMetaTitle,
     seoMetaDescription: entity.seoMetaDescription,
     metaImageUrl: entity.metaImageUrl,
@@ -53,7 +44,6 @@ export function toMultipleChoiceDomain(
   entity: MultipleChoice,
 ): MultipleChoiceDomain {
   return new MultipleChoiceDomain({
-    id: entity.id,
     content: entity.content,
   });
 }

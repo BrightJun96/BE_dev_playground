@@ -2,14 +2,11 @@ export class MultipleChoiceDomain {
   id: number;
   content: string;
 
-  constructor({
-    id,
-    content,
-  }: {
-    id: number;
-    content: string;
-  }) {
-    this.id = id;
+  constructor({ content }: { content: string }) {
     this.content = content;
+  }
+
+  assignId(id: number) {
+    this.id = id;
   }
 }

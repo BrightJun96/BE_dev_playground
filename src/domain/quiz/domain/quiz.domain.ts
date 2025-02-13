@@ -1,4 +1,6 @@
+import { BadRequestException } from "@nestjs/common";
 import { Field } from "../../../shared/enum/field.enum";
+import { CreateQuizRequestDto } from "../dto/request/create-quiz.request.dto";
 import { MultipleChoiceDomain } from "./multiple-choice.domain";
 import { QuizMetaDataDomain } from "./quiz-meta-data.domain";
 
@@ -17,7 +19,6 @@ export class QuizDomain {
   version: number;
 
   constructor({
-    id,
     title,
     content,
     detailUrl,
@@ -25,11 +26,7 @@ export class QuizDomain {
     explanation,
     answer,
     quizMetaData,
-    createdAt,
-    updatedAt,
-    version,
   }: {
-    id: number;
     title: string;
     content: string;
     detailUrl: string;
@@ -37,11 +34,7 @@ export class QuizDomain {
     explanation: string;
     answer: number;
     quizMetaData: QuizMetaDataDomain;
-    createdAt: Date;
-    updatedAt: Date;
-    version: number;
   }) {
-    this.id = id;
     this.title = title;
     this.content = content;
     this.detailUrl = detailUrl;
@@ -49,14 +42,52 @@ export class QuizDomain {
     this.explanation = explanation;
     this.answer = answer;
     this.quizMetaData = quizMetaData;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-    this.version = version;
+  }
+
+  /**  퀴즈 도메인 객체 생성 (팩토리 메서드) */
+  static create(
+    createQuizDto: CreateQuizRequestDto,
+    quizMetaData: QuizMetaDataDomain,
+    multipleChoices: MultipleChoiceDomain[],
+  ): QuizDomain {
+    if (!createQuizDto.title || !createQuizDto.detailUrl) {
+      throw new BadRequestException(
+        "퀴즈 제목과 URL은 필수입니다.",
+      );
+    }
+
+    const quiz = new QuizDomain({
+      title: createQuizDto.title,
+      content: createQuizDto.content,
+      detailUrl: createQuizDto.detailUrl,
+      field: createQuizDto.field,
+      explanation: createQuizDto.explanation,
+      answer: createQuizDto.answer,
+      quizMetaData,
+    });
+
+    quiz.assignMultipleChoices(multipleChoices);
+    return quiz;
   }
 
   assignMultipleChoices(
     multipleChoices: MultipleChoiceDomain[],
   ) {
     this.multipleChoices = multipleChoices;
+  }
+
+  assignId(id: number) {
+    this.id = id;
+  }
+
+  assignCreatedAt(date: Date) {
+    this.createdAt = date;
+  }
+
+  assignUpdatedAt(date: Date) {
+    this.updatedAt = date;
+  }
+  assignVersion(version: number) {
+    this.version = version;
   }
 }

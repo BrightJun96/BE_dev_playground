@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { DataSource } from "typeorm";
-import { TypeormTransactionAdapter } from "./typeorm-transaction.adapter";
+import { TypeormTransactionAdapter } from "./adapter/typeorm-transaction.adapter";
 
 @Module({
   providers: [

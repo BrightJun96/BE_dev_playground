@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { TransactionManagerPort } from "./port/transaction-manager.port";
+import { TransactionManagerPort } from "../port/transaction-manager.port";
 
 export class TypeormTransactionAdapter
   implements TransactionManagerPort
