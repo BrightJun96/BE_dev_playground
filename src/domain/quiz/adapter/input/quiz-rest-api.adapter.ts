@@ -129,7 +129,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
    */
   @Get()
   @Public()
-  // @RBAC(Role.admin)
+  @RBAC(Role.admin)
   @ApiOperation({
     description: "관리자-퀴즈 목록",
   })
@@ -149,7 +149,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
    * 퀴즈 생성
    */
   @Post()
-  // @RBAC(Role.admin)
+  @RBAC(Role.admin)
   @Public()
   @UseInterceptors(TransactionInterceptor)
   @ApiOperation({
@@ -167,7 +167,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
    * 수정
    */
   @Patch(":id")
-  // @RBAC(Role.admin)
+  @RBAC(Role.admin)
   @Public()
   @UseInterceptors(TransactionInterceptor)
   @ApiOperation({
@@ -188,7 +188,7 @@ export class QuizRestApiAdapter implements QuizUseCasePort {
    * 퀴즈 상세
    */
   @Get(":id")
-  // @RBAC(Role.admin)
+  @RBAC(Role.admin)
   @Public()
   @ApiOperation({
     description: "관리자-퀴즈 상세",
