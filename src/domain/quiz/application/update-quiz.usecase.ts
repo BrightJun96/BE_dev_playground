@@ -10,7 +10,7 @@ import { QuizMetaData } from "../entities/quiz-meta-data.entity";
 import { Quiz } from "../entities/quiz.entity";
 
 @Injectable()
-export class UpdateQuizService {
+export class UpdateQuizUsecase {
   /**
    * 퀴즈 수정
    */

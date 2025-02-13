@@ -18,33 +18,36 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import { QueryRunner as QR } from "typeorm/query-runner/QueryRunner";
-import { QueryRunner } from "../../shared/decorator/query-runner.decorator";
-import { TransactionInterceptor } from "../../shared/interceptor/transaction.interceptor";
-import { Public } from "../auth/decorator/public.decorator";
-import { RBAC } from "../auth/decorator/rbac.decorator";
-import { Role } from "../user/entities/user.entity";
-import { CheckAnswerRequestDto } from "./dto/request/check-answer.request.dto";
-import { CreateQuizRequestDto } from "./dto/request/create-quiz.request.dto";
-import { GetQuizListRequestDto } from "./dto/request/get-quiz-list.request.dto";
-import { UpdateQuizRequestDto } from "./dto/request/update-quiz.request.dto";
-import { CheckAnswerResponseDto } from "./dto/response/check-answer.response.dto";
-import { DeleteQuizResponseDto } from "./dto/response/delete-quiz.response.dto";
-import { GetQuizListResponseDto } from "./dto/response/get-quiz-list.response.dto";
-import { QuizDetailURLResponseDto } from "./dto/response/get-quiz-url.response.dto";
-import { GetQuizSharedDto } from "./dto/shared/get-quiz.shared.dto";
-import { CreateQuizService } from "./service/create-quiz.service";
-import { QuizListService } from "./service/quiz-list.service";
-import { QuizService } from "./service/quiz.service";
-import { UpdateQuizService } from "./service/update-quiz.service";
+import { QueryRunner } from "../../../../shared/decorator/query-runner.decorator";
+import { TransactionInterceptor } from "../../../../shared/interceptor/transaction.interceptor";
+import { Public } from "../../../auth/decorator/public.decorator";
+import { RBAC } from "../../../auth/decorator/rbac.decorator";
+import { Role } from "../../../user/entities/user.entity";
+import { CreateQuizUsecase } from "../../application/create-quiz.usecase";
+import { QuizListUsecase } from "../../application/quiz-list.usecase";
+import { QuizUsecase } from "../../application/quiz.usecase";
+import { UpdateQuizUsecase } from "../../application/update-quiz.usecase";
+import { CheckAnswerRequestDto } from "../../dto/request/check-answer.request.dto";
+import { CreateQuizRequestDto } from "../../dto/request/create-quiz.request.dto";
+import { GetQuizListRequestDto } from "../../dto/request/get-quiz-list.request.dto";
+import { UpdateQuizRequestDto } from "../../dto/request/update-quiz.request.dto";
+import { CheckAnswerResponseDto } from "../../dto/response/check-answer.response.dto";
+import { DeleteQuizResponseDto } from "../../dto/response/delete-quiz.response.dto";
+import { GetQuizListResponseDto } from "../../dto/response/get-quiz-list.response.dto";
+import { QuizDetailURLResponseDto } from "../../dto/response/get-quiz-url.response.dto";
+import { GetQuizSharedDto } from "../../dto/shared/get-quiz.shared.dto";
+import { QuizUseCasePort } from "../../port/input/quiz-use-case.port";
 
 @Controller("quiz")
 @ApiTags("퀴즈")
-export class QuizController {
+export class QuizRestApiController
+  implements QuizUseCasePort
+{
   constructor(
-    private readonly quizService: QuizService,
-    private readonly createQuizService: CreateQuizService,
-    private readonly updateQuizService: UpdateQuizService,
-    private readonly quizListService: QuizListService,
+    private readonly quizService: QuizUsecase,
+    private readonly createQuizService: CreateQuizUsecase,
+    private readonly updateQuizService: UpdateQuizUsecase,
+    private readonly quizListService: QuizListUsecase,
   ) {}
 
   /**

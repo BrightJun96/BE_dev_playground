@@ -1,4 +1,4 @@
-import { QuizDomain } from "../domain/quiz.domain";
+import { QuizDomain } from "../../domain/quiz.domain";
 
 export interface CreateQuizRepositoryPort {
   findOneByUrl(url: string): Promise<QuizDomain | null>;

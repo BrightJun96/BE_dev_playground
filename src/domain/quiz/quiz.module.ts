@@ -2,15 +2,15 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { SharedModule } from "../../shared/shared.module";
 import { TransactionModule } from "../../shared/transaction/transaction.module";
-import { CreateQuizRepositoryTypeormAdapter } from "./adapter/create-quiz-repository.typeorm.adapter";
+import { QuizRestApiController } from "./adapter/input/quiz-rest-api.controller";
+import { CreateQuizRepositoryTypeormAdapter } from "./adapter/output/create-quiz-repository.typeorm.adapter";
+import { CreateQuizUsecase } from "./application/create-quiz.usecase";
+import { QuizListUsecase } from "./application/quiz-list.usecase";
+import { QuizUsecase } from "./application/quiz.usecase";
+import { UpdateQuizUsecase } from "./application/update-quiz.usecase";
 import { MultipleChoice } from "./entities/multiple-choice.entity";
 import { QuizMetaData } from "./entities/quiz-meta-data.entity";
 import { Quiz } from "./entities/quiz.entity";
-import { QuizController } from "./quiz.controller";
-import { CreateQuizService } from "./service/create-quiz.service";
-import { QuizListService } from "./service/quiz-list.service";
-import { QuizService } from "./service/quiz.service";
-import { UpdateQuizService } from "./service/update-quiz.service";
 
 @Module({
   imports: [
@@ -22,11 +22,11 @@ import { UpdateQuizService } from "./service/update-quiz.service";
     ]),
     TransactionModule,
   ],
-  controllers: [QuizController],
+  controllers: [QuizRestApiController],
   providers: [
-    QuizService,
-    QuizListService,
-    CreateQuizService,
+    QuizUsecase,
+    QuizListUsecase,
+    CreateQuizUsecase,
     {
       provide: "CreateQuizRepositoryPort",
       useClass: CreateQuizRepositoryTypeormAdapter,
@@ -36,7 +36,7 @@ import { UpdateQuizService } from "./service/update-quiz.service";
     //   useClass: TypeormTransactionAdapter,
     // },
 
-    UpdateQuizService,
+    UpdateQuizUsecase,
   ],
 })
 export class QuizModule {}

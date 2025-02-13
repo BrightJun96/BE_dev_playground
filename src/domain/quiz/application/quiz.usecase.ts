@@ -13,7 +13,7 @@ import { GetQuizSharedDto } from "../dto/shared/get-quiz.shared.dto";
 import { Quiz } from "../entities/quiz.entity";
 
 @Injectable()
-export class QuizService {
+export class QuizUsecase {
   constructor(
     @InjectRepository(Quiz)
     private readonly quizRepository: Repository<Quiz>,

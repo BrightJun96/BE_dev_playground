@@ -7,7 +7,7 @@ import { GetQuizListResponseDto } from "../dto/response/get-quiz-list.response.d
 import { Quiz } from "../entities/quiz.entity";
 
 @Injectable()
-export class QuizListService {
+export class QuizListUsecase {
   constructor(
     @InjectRepository(Quiz)
     private readonly quizRepository: Repository<Quiz>,

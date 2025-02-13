@@ -8,10 +8,10 @@ import { MultipleChoiceDomain } from "../domain/multiple-choice.domain";
 import { QuizMetaDataDomain } from "../domain/quiz-meta-data.domain";
 import { QuizDomain } from "../domain/quiz.domain";
 import { CreateQuizRequestDto } from "../dto/request/create-quiz.request.dto";
-import { CreateQuizRepositoryPort } from "../port/create-quiz.repository.port";
+import { CreateQuizRepositoryPort } from "../port/output/create-quiz.repository.port";
 
 @Injectable()
-export class CreateQuizService {
+export class CreateQuizUsecase {
   constructor(
     @Inject("CreateQuizRepositoryPort")
     private readonly createQuizRepositoryPort: CreateQuizRepositoryPort,
