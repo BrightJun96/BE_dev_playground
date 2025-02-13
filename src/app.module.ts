@@ -46,13 +46,13 @@ import { User } from "./domain/user/entities/user.entity";
 import { UserModule } from "./domain/user/user.module";
 
 import { FileUploadModule } from "./file-upload/file-upload.module";
-import { MetricsInterceptor } from "./metrics/metrics.interceptor";
 import { MetricsModule } from "./metrics/metrics.module";
 import { envVariablesKeys } from "./shared/const/env.const";
 import { QueryFailedFilter } from "./shared/filter/query-failed.filter";
 import { ResponseTimeInterceptor } from "./shared/interceptor/response-time.interceptor";
 import { ResponseTransformerInterceptor } from "./shared/interceptor/response-transformer.interceptor";
 import { ThrottleInterceptor } from "./shared/interceptor/throttle.interceptor";
+import { TypeormTransactionAdapter } from "./shared/transaction/typeorm-transaction.adapter";
 import { WorkerModule } from "./worker/worker.module";
 
 @Module({
@@ -192,9 +192,13 @@ import { WorkerModule } from "./worker/worker.module";
       provide: APP_INTERCEPTOR,
       useClass: ThrottleInterceptor,
     },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: MetricsInterceptor,
+    // },
     {
-      provide: APP_INTERCEPTOR,
-      useClass: MetricsInterceptor,
+      provide: "TransactionManagerPort",
+      useClass: TypeormTransactionAdapter,
     },
   ],
 })

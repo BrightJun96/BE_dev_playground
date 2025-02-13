@@ -1,8 +1,6 @@
-import { Injectable } from "@nestjs/common";
 import { DataSource } from "typeorm";
 import { TransactionManagerPort } from "./port/transaction-manager.port";
 
-@Injectable()
 export class TypeormTransactionAdapter
   implements TransactionManagerPort
 {

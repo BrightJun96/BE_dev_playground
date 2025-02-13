@@ -25,7 +25,6 @@ export class QuizDomain {
     explanation,
     answer,
     quizMetaData,
-    multipleChoices,
     createdAt,
     updatedAt,
     version,
@@ -38,7 +37,6 @@ export class QuizDomain {
     explanation: string;
     answer: number;
     quizMetaData: QuizMetaDataDomain;
-    multipleChoices: MultipleChoiceDomain[];
     createdAt: Date;
     updatedAt: Date;
     version: number;
@@ -51,9 +49,14 @@ export class QuizDomain {
     this.explanation = explanation;
     this.answer = answer;
     this.quizMetaData = quizMetaData;
-    this.multipleChoices = multipleChoices;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.version = version;
+  }
+
+  assignMultipleChoices(
+    multipleChoices: MultipleChoiceDomain[],
+  ) {
+    this.multipleChoices = multipleChoices;
   }
 }
