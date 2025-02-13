@@ -6,10 +6,7 @@ import { CreateQuizRepositoryPort } from "../../../port/output/create-quiz.repos
 import { MultipleChoice } from "./entities/multiple-choice.entity";
 import { QuizMetaData } from "./entities/quiz-meta-data.entity";
 import { Quiz } from "./entities/quiz.entity";
-import {
-  toMultipleChoiceDomain,
-  toQuizDomain,
-} from "./mapper/quiz.mapper";
+import { toMultipleChoiceDomain } from "./mapper/quiz.mapper";
 
 export class CreateQuizRepositoryTypeormAdapter
   implements CreateQuizRepositoryPort
@@ -23,7 +20,7 @@ export class CreateQuizRepositoryTypeormAdapter
     private readonly multipleChoiceRepository: Repository<MultipleChoice>,
   ) {}
 
-  async findOneByUrl(url: string): Promise<QuizDomain> {
+  async findOneByUrl(url: string): Promise<void> {
     const quizEntity = await this.quizRepository.findOne({
       where: { detailUrl: url },
     });
@@ -33,15 +30,6 @@ export class CreateQuizRepositoryTypeormAdapter
         "detailUrl은 중복되면 안됩니다.",
       );
     }
-
-    const quizDomain = toQuizDomain(quizEntity);
-
-    quizDomain.assignId(quizEntity.id);
-    quizDomain.assignUpdatedAt(quizEntity.updatedAt);
-    quizDomain.assignCreatedAt(quizEntity.createdAt);
-    quizDomain.assignVersion(quizEntity.version);
-
-    return quizDomain;
   }
 
   async save(quizDomain: QuizDomain): Promise<QuizDomain> {
@@ -86,6 +74,7 @@ export class CreateQuizRepositoryTypeormAdapter
     savedQuiz.assignCreatedAt(quizEntity.createdAt);
     savedQuiz.assignUpdatedAt(quizEntity.updatedAt);
     savedQuiz.assignVersion(quizEntity.version);
+    savedQuiz.assignMetadata(metaEntity);
 
     return savedQuiz;
   }

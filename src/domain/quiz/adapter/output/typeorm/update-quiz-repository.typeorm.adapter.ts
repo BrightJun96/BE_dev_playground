@@ -13,6 +13,7 @@ import { Quiz } from "./entities/quiz.entity";
 import {
   toMultipleChoiceDomain,
   toQuizDomain,
+  toQuizMetaDataDomain,
 } from "./mapper/quiz.mapper";
 
 export class UpdateQuizRepositoryTypeormAdapter
@@ -45,6 +46,11 @@ export class UpdateQuizRepositoryTypeormAdapter
     }
 
     const quizDomain = toQuizDomain(quizEntity);
+    const metaData = toQuizMetaDataDomain(
+      quizEntity.quizMetaData,
+    );
+    metaData.assignId(quizEntity.id);
+
     const quizMultipleDomain =
       quizEntity.multipleChoices.map((m) => {
         const multipleDomain = toMultipleChoiceDomain(m);
@@ -56,6 +62,7 @@ export class UpdateQuizRepositoryTypeormAdapter
     quizDomain.assignCreatedAt(quizEntity.createdAt);
     quizDomain.assignVersion(quizEntity.version);
     quizDomain.assignMultipleChoices(quizMultipleDomain);
+    quizDomain.assignMetadata(metaData);
 
     return quizDomain;
   }

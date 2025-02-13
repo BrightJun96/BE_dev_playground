@@ -20,7 +20,7 @@ export function toQuizDomain(entity: Quiz): QuizDomain {
     field: entity.field,
     explanation: entity.explanation,
     answer: entity.answer,
-    quizMetaData: toQuizMetaDataDomain(entity.quizMetaData),
+    // quizMetaData: toQuizMetaDataDomain(entity.quizMetaData),
   });
 }
 

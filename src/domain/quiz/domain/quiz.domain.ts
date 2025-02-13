@@ -25,7 +25,7 @@ export class QuizDomain {
     field,
     explanation,
     answer,
-    quizMetaData,
+    // quizMetaData,
   }: {
     title: string;
     content: string;
@@ -33,7 +33,7 @@ export class QuizDomain {
     field: Field;
     explanation: string;
     answer: number;
-    quizMetaData: QuizMetaDataDomain;
+    // quizMetaData: QuizMetaDataDomain;
   }) {
     this.title = title;
     this.content = content;
@@ -41,7 +41,7 @@ export class QuizDomain {
     this.field = field;
     this.explanation = explanation;
     this.answer = answer;
-    this.quizMetaData = quizMetaData;
+    // this.quizMetaData = quizMetaData;
   }
 
   /**  퀴즈 도메인 객체 생성 (팩토리 메서드) */
@@ -63,9 +63,9 @@ export class QuizDomain {
       field: createQuizDto.field,
       explanation: createQuizDto.explanation,
       answer: createQuizDto.answer,
-      quizMetaData,
     });
 
+    quiz.assignMetadata(quizMetaData);
     quiz.assignMultipleChoices(multipleChoices);
     return quiz;
   }
@@ -74,6 +74,10 @@ export class QuizDomain {
     multipleChoices: MultipleChoiceDomain[],
   ) {
     this.multipleChoices = multipleChoices;
+  }
+
+  assignMetadata(quizMetaData: QuizMetaDataDomain) {
+    this.quizMetaData = quizMetaData;
   }
 
   assignId(id: number) {
