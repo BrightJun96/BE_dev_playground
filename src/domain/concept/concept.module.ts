@@ -4,11 +4,12 @@ import { TransactionModule } from "../../shared/transaction/transaction.module";
 import { ConceptRestApiControllerAdapter } from "./adapter/input/concept-rest-api.controller.adapter";
 import { ConceptMeta } from "./adapter/output/typeorm/entities/concept-meta.entity";
 import { Concept } from "./adapter/output/typeorm/entities/concept.entity";
-import { ConceptRepositoryAdapter } from "./adapter/output/typeorm/repository/create-concept.repository.adapter";
+import { CreateConceptRepositoryAdapter } from "./adapter/output/typeorm/repository/create-concept.repository.adapter";
 import { ManageConceptRepositoryAdapter } from "./adapter/output/typeorm/repository/manage-concept.repository.adapter";
+import { UpdateConceptRepositoryAdapter } from "./adapter/output/typeorm/repository/update-concept.repository.adapter";
 import { CreateConceptUseCase } from "./application/create-concept.use-case";
 import { ManageConceptUseCase } from "./application/manage-concept.use-case";
-import { UpdateConceptService } from "./application/update-concept.service";
+import { UpdateConceptUseCase } from "./application/update-concept.use-case";
 
 @Module({
   imports: [
@@ -24,10 +25,14 @@ import { UpdateConceptService } from "./application/update-concept.service";
     },
     CreateConceptUseCase,
     {
-      provide: "ConceptRepositoryPort",
-      useClass: ConceptRepositoryAdapter,
+      provide: "CreateConceptRepositoryPort",
+      useClass: CreateConceptRepositoryAdapter,
     },
-    UpdateConceptService,
+    UpdateConceptUseCase,
+    {
+      provide: "UpdateConceptRepositoryPort",
+      useClass: UpdateConceptRepositoryAdapter,
+    },
   ],
 })
 export class ConceptModule {}

@@ -15,15 +15,13 @@ import {
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
-import { QueryRunner as QR } from "typeorm";
-import { QueryRunner } from "../../../../shared/decorator/query-runner.decorator";
 import { TransactionInterceptor } from "../../../../shared/interceptor/transaction.interceptor";
 import { Public } from "../../../auth/decorator/public.decorator";
 import { RBAC } from "../../../auth/decorator/rbac.decorator";
 import { Role } from "../../../user/entities/user.entity";
 import { CreateConceptUseCase } from "../../application/create-concept.use-case";
 import { ManageConceptUseCase } from "../../application/manage-concept.use-case";
-import { UpdateConceptService } from "../../application/update-concept.service";
+import { UpdateConceptUseCase } from "../../application/update-concept.use-case";
 import { CreateConceptRequestDto } from "../../dto/request/create-concept.request.dto";
 import { GetConceptListRequestDto } from "../../dto/request/get-concept-list.request.dto";
 import { UpdateConceptRequestDto } from "../../dto/request/update-concept.request.dto";
@@ -38,7 +36,7 @@ export class ConceptRestApiControllerAdapter
   constructor(
     private readonly conceptService: ManageConceptUseCase,
     private readonly createConceptService: CreateConceptUseCase,
-    private readonly updateConceptService: UpdateConceptService,
+    private readonly updateConceptService: UpdateConceptUseCase,
   ) {}
 
   /**
@@ -104,12 +102,10 @@ export class ConceptRestApiControllerAdapter
   update(
     @Param("id", ParseIntPipe) id: number,
     @Body() updateConceptDto: UpdateConceptRequestDto,
-    @QueryRunner() qr: QR,
   ) {
-    return this.updateConceptService.update(
+    return this.updateConceptService.execute(
       id,
       updateConceptDto,
-      qr,
     );
   }
 

@@ -11,7 +11,7 @@ import { ConceptMeta } from "../entities/concept-meta.entity";
 import { Concept } from "../entities/concept.entity";
 import { ConceptMapper } from "../mapper/concept.mapper";
 
-export class ConceptRepositoryAdapter
+export class CreateConceptRepositoryAdapter
   implements CreateConceptRepositoryPort
 {
   constructor(
