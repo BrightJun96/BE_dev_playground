@@ -30,16 +30,16 @@ import { BearerTokenMiddleware } from "./domain/auth/middleware/bearer-token.mid
 import { ChatModule } from "./domain/chat/chat.module";
 import { ChatRoom } from "./domain/chat/entities/chat-room.entity";
 import { Chat } from "./domain/chat/entities/chat.entity";
+import { ConceptMeta } from "./domain/concept/adapter/output/typeorm/entities/concept-meta.entity";
+import { Concept } from "./domain/concept/adapter/output/typeorm/entities/concept.entity";
 import { ConceptModule } from "./domain/concept/concept.module";
-import { ConceptMeta } from "./domain/concept/entities/concept-meta.entity";
-import { Concept } from "./domain/concept/entities/concept.entity";
 import { InterviewMetadata } from "./domain/interview/entities/interview-metadata.entity";
 import { Interview } from "./domain/interview/entities/interview.entity";
 import { InterviewModule } from "./domain/interview/interview.module";
 
-import { MultipleChoice } from "./domain/quiz/entities/multiple-choice.entity";
-import { QuizMetaData } from "./domain/quiz/entities/quiz-meta-data.entity";
-import { Quiz } from "./domain/quiz/entities/quiz.entity";
+import { MultipleChoice } from "./domain/quiz/adapter/output/typeorm/entities/multiple-choice.entity";
+import { QuizMetaData } from "./domain/quiz/adapter/output/typeorm/entities/quiz-meta-data.entity";
+import { Quiz } from "./domain/quiz/adapter/output/typeorm/entities/quiz.entity";
 import { QuizModule } from "./domain/quiz/quiz.module";
 import { RoadmapModule } from "./domain/roadmap/roadmap.module";
 import { User } from "./domain/user/entities/user.entity";
@@ -53,6 +53,7 @@ import { QueryFailedFilter } from "./shared/filter/query-failed.filter";
 import { ResponseTimeInterceptor } from "./shared/interceptor/response-time.interceptor";
 import { ResponseTransformerInterceptor } from "./shared/interceptor/response-transformer.interceptor";
 import { ThrottleInterceptor } from "./shared/interceptor/throttle.interceptor";
+import { TransactionModule } from "./shared/transaction/transaction.module";
 import { WorkerModule } from "./worker/worker.module";
 
 @Module({
@@ -166,6 +167,7 @@ import { WorkerModule } from "./worker/worker.module";
     InterviewModule,
     ConceptModule,
     RoadmapModule,
+    TransactionModule,
   ],
   providers: [
     {
