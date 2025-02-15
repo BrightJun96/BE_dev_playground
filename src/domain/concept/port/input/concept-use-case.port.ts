@@ -17,7 +17,7 @@ export interface ConceptUseCasePort {
   create(
     createConceptDto: CreateConceptRequestDto,
     qr: QueryRunner,
-  ): Promise<GetConceptSharedDto>;
+  ): Promise<ConceptDomain>;
   update(
     id: number,
     updateConceptDto: UpdateConceptRequestDto,

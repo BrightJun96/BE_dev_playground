@@ -21,7 +21,7 @@ import { TransactionInterceptor } from "../../../../shared/interceptor/transacti
 import { Public } from "../../../auth/decorator/public.decorator";
 import { RBAC } from "../../../auth/decorator/rbac.decorator";
 import { Role } from "../../../user/entities/user.entity";
-import { CreateConceptService } from "../../application/create-concept.service";
+import { CreateConceptUseCase } from "../../application/create-concept.use-case";
 import { ManageConceptUseCase } from "../../application/manage-concept.use-case";
 import { UpdateConceptService } from "../../application/update-concept.service";
 import { CreateConceptRequestDto } from "../../dto/request/create-concept.request.dto";
@@ -37,7 +37,7 @@ export class ConceptRestApiControllerAdapter
 {
   constructor(
     private readonly conceptService: ManageConceptUseCase,
-    private readonly createConceptService: CreateConceptService,
+    private readonly createConceptService: CreateConceptUseCase,
     private readonly updateConceptService: UpdateConceptService,
   ) {}
 
@@ -89,11 +89,9 @@ export class ConceptRestApiControllerAdapter
   })
   create(
     @Body() createConceptDto: CreateConceptRequestDto,
-    @QueryRunner() qr: QR,
   ) {
-    return this.createConceptService.create(
+    return this.createConceptService.execute(
       createConceptDto,
-      qr,
     );
   }
 

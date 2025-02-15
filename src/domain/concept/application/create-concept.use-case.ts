@@ -1,25 +1,31 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
 } from "@nestjs/common";
 import { QueryRunner } from "typeorm";
 import { Relations } from "../../../shared/const/relation.const";
 import { MetadataSharedDto } from "../../../shared/dto/metadata.shared.dto";
+import { TransactionManagerPort } from "../../../shared/transaction/port/transaction-manager.port";
 import { ConceptMeta } from "../adapter/output/typeorm/entities/concept-meta.entity";
 import { Concept } from "../adapter/output/typeorm/entities/concept.entity";
 import { CreateConceptRequestDto } from "../dto/request/create-concept.request.dto";
+import { CreateConceptRepositoryPort } from "../port/output/create-concept.repository.port";
 
 @Injectable()
-export class CreateConceptService {
-  async create(
-    createConceptDto: CreateConceptRequestDto,
-    qr: QueryRunner,
-  ) {
-    const duplicateOne = await qr.manager.findOne(Concept, {
-      where: {
-        detailUrl: createConceptDto.detailUrl,
-      },
-    });
+export class CreateConceptUseCase {
+  constructor(
+    @Inject("ConceptRepositoryPort")
+    private readonly conceptRepositoryPort: CreateConceptRepositoryPort,
+    @Inject("TransactionManagerPort")
+    private readonly transactionManagerPort: TransactionManagerPort,
+  ) {}
+
+  async execute(createConceptDto: CreateConceptRequestDto) {
+    const duplicateOne =
+      await this.conceptRepositoryPort.findByDetailUrl(
+        createConceptDto.detailUrl,
+      );
 
     if (duplicateOne) {
       throw new BadRequestException(
@@ -27,22 +33,19 @@ export class CreateConceptService {
       );
     }
 
-    const meta = await this.createMeta(
-      createConceptDto.metaData,
-      qr,
+    return await this.transactionManagerPort.runInTransaction(
+      async () => {
+        const meta =
+          await this.conceptRepositoryPort.createMeta(
+            createConceptDto.metaData,
+          );
+
+        return await this.conceptRepositoryPort.createConcept(
+          createConceptDto,
+          meta,
+        );
+      },
     );
-
-    const metaId = meta.identifiers[0].id;
-
-    const concept = await this.createConcept(
-      createConceptDto,
-      metaId,
-      qr,
-    );
-
-    const conceptId = concept.identifiers[0].id;
-
-    return this.findOne(conceptId, qr);
   }
 
   findOne(conceptId: number, qr: QueryRunner) {
