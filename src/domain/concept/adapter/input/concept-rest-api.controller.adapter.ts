@@ -16,24 +16,27 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import { QueryRunner as QR } from "typeorm";
-import { QueryRunner } from "../../shared/decorator/query-runner.decorator";
-import { TransactionInterceptor } from "../../shared/interceptor/transaction.interceptor";
-import { Public } from "../auth/decorator/public.decorator";
-import { RBAC } from "../auth/decorator/rbac.decorator";
-import { Role } from "../user/entities/user.entity";
-import { CreateConceptRequestDto } from "./dto/request/create-concept.request.dto";
-import { GetConceptListRequestDto } from "./dto/request/get-concept-list.request.dto";
-import { UpdateConceptRequestDto } from "./dto/request/update-concept.request.dto";
-import { GetConceptSharedDto } from "./dto/shared/get-concept.shared.dto";
-import { ConceptService } from "./service/concept.service";
-import { CreateConceptService } from "./service/create-concept.service";
-import { UpdateConceptService } from "./service/update-concept.service";
+import { QueryRunner } from "../../../../shared/decorator/query-runner.decorator";
+import { TransactionInterceptor } from "../../../../shared/interceptor/transaction.interceptor";
+import { Public } from "../../../auth/decorator/public.decorator";
+import { RBAC } from "../../../auth/decorator/rbac.decorator";
+import { Role } from "../../../user/entities/user.entity";
+import { CreateConceptService } from "../../application/create-concept.service";
+import { ManageConceptUseCase } from "../../application/manage-concept.use-case";
+import { UpdateConceptService } from "../../application/update-concept.service";
+import { CreateConceptRequestDto } from "../../dto/request/create-concept.request.dto";
+import { GetConceptListRequestDto } from "../../dto/request/get-concept-list.request.dto";
+import { UpdateConceptRequestDto } from "../../dto/request/update-concept.request.dto";
+import { GetConceptSharedDto } from "../../dto/shared/get-concept.shared.dto";
+import { ConceptUseCasePort } from "../../port/input/concept-use-case.port";
 
 @Controller("concept")
 @ApiTags("개발 개념")
-export class ConceptController {
+export class ConceptRestApiControllerAdapter
+  implements ConceptUseCasePort
+{
   constructor(
-    private readonly conceptService: ConceptService,
+    private readonly conceptService: ManageConceptUseCase,
     private readonly createConceptService: CreateConceptService,
     private readonly updateConceptService: UpdateConceptService,
   ) {}

@@ -1,5 +1,5 @@
 import { Entity, OneToOne } from "typeorm";
-import { SharedMetadataEntity } from "../../../shared/entity/shared-metadata.entity";
+import { SharedMetadataEntity } from "../../../../../../shared/entity/shared-metadata.entity";
 import { Concept } from "./concept.entity";
 
 @Entity({

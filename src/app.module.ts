@@ -30,9 +30,9 @@ import { BearerTokenMiddleware } from "./domain/auth/middleware/bearer-token.mid
 import { ChatModule } from "./domain/chat/chat.module";
 import { ChatRoom } from "./domain/chat/entities/chat-room.entity";
 import { Chat } from "./domain/chat/entities/chat.entity";
+import { ConceptMeta } from "./domain/concept/adapter/output/typeorm/entities/concept-meta.entity";
+import { Concept } from "./domain/concept/adapter/output/typeorm/entities/concept.entity";
 import { ConceptModule } from "./domain/concept/concept.module";
-import { ConceptMeta } from "./domain/concept/entities/concept-meta.entity";
-import { Concept } from "./domain/concept/entities/concept.entity";
 import { InterviewMetadata } from "./domain/interview/entities/interview-metadata.entity";
 import { Interview } from "./domain/interview/entities/interview.entity";
 import { InterviewModule } from "./domain/interview/interview.module";
@@ -46,6 +46,7 @@ import { User } from "./domain/user/entities/user.entity";
 import { UserModule } from "./domain/user/user.module";
 
 import { FileUploadModule } from "./file-upload/file-upload.module";
+import { MetricsInterceptor } from "./metrics/metrics.interceptor";
 import { MetricsModule } from "./metrics/metrics.module";
 import { envVariablesKeys } from "./shared/const/env.const";
 import { QueryFailedFilter } from "./shared/filter/query-failed.filter";
@@ -193,10 +194,10 @@ import { WorkerModule } from "./worker/worker.module";
       provide: APP_INTERCEPTOR,
       useClass: ThrottleInterceptor,
     },
-    // {
-    //   provide: APP_INTERCEPTOR,
-    //   useClass: MetricsInterceptor,
-    // },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: MetricsInterceptor,
+    },
   ],
 })
 export class AppModule implements NestModule {

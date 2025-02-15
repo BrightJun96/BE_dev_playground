@@ -4,8 +4,8 @@ import {
   JoinColumn,
   OneToOne,
 } from "typeorm";
-import { SharedEntity } from "../../../shared/entity/shared.entity";
-import { Tech } from "../../../shared/enum/tech.enum";
+import { SharedEntity } from "../../../../../../shared/entity/shared.entity";
+import { Tech } from "../../../../../../shared/enum/tech.enum";
 import { ConceptMeta } from "./concept-meta.entity";
 
 @Entity({

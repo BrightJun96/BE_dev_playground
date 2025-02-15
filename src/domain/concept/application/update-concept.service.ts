@@ -5,9 +5,9 @@ import {
 import { QueryRunner } from "typeorm";
 import { Relations } from "../../../shared/const/relation.const";
 import { UpdateMetadataSharedDto } from "../../../shared/dto/update-metadata.shared.dto";
+import { ConceptMeta } from "../adapter/output/typeorm/entities/concept-meta.entity";
+import { Concept } from "../adapter/output/typeorm/entities/concept.entity";
 import { UpdateConceptRequestDto } from "../dto/request/update-concept.request.dto";
-import { ConceptMeta } from "../entities/concept-meta.entity";
-import { Concept } from "../entities/concept.entity";
 
 @Injectable()
 export class UpdateConceptService {
