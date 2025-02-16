@@ -15,9 +15,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
     origin: [
-      "https://thedevlounge.com",
-      "http://localhost:3000",
-      "http://localhost:5173",
+      "https://thedevlounge.com", // 사용자
+      "http://localhost:3000", // 사용자-로컬
+      "http://localhost:5173", // 관리자 - 로컬
+      "https://d1di0u53kr6kck.cloudfront.net", // 관리자
     ],
     credentials: true,
   });
