@@ -103,6 +103,8 @@ export class BearerTokenMiddleware
       if (cache) {
         return cache;
       }
+
+      // 토큰 만료 검증과 동시에 token 정보 반환
       const tokenInfo = await this.jwtService.verifyAsync(
         token,
         {

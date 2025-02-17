@@ -24,11 +24,28 @@ export class AuthGuard implements CanActivate {
     // 요청에서 req.user 확인
     const request = context.switchToHttp().getRequest();
 
+    /**
+     * request가 reissue-accessToken인 경우
+     * user 정보가 없거나 request가 reissue-accessToken일 때, token type이 refresh가 아닐 때
+     */
+
+    if (request.path === "/auth/reissue-accessToken") {
+      if (
+        !request.user ||
+        request.user.type !== AUTH_CONST.REFRESH_TOKEN
+      ) {
+        return false;
+      }
+
+      return true;
+    }
+
+    // request에 user 정보가 없거나 token type이 access가 아닐시 403
     if (
       !request.user ||
       request.user.type !== AUTH_CONST.ACCESS_TOKEN
     ) {
-      return false;
+      return false; // return 403
     }
     return true;
   }
